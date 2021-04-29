@@ -1,33 +1,23 @@
-
 /**
- * Escreva a descrição da classe Avancado aqui.
+ * Escreva a descrição da classe Lateral aqui.
  * 
- * @author (seu nome) 
+ * @author (Gerson Junior) 
  * @version (número de versão ou data)
  */
-public class Avancado
+
+public class Avancado extends Jogador
 {
-    // variáveis de instância - substitua o exemplo abaixo pelo seu próprio
-    private int x;
-
-    /**
-     * COnstrutor para objetos da classe Avancado
-     */
-    public Avancado()
-    {
-        // inicializa variáveis de instância
-        x = 0;
+    
+    //Construtor por omissão
+    public Avancado(String nome,int posicao,double valorJogador,int velocidade,int resistencia,int destreza,int implusao,int cabecear,int remate,int passe){
+        super(nome, valorJogador, velocidade, resistencia, destreza, implusao, cabecear, remate, passe);
     }
+    
 
-    /**
-     * Exemplo de método - substitua este comentário pelo seu próprio
-     * 
-     * @param  y   exemplo de um parâmetro de método
-     * @return     a soma de x com y 
-     */
-    public int sampleMethod(int y)
-    {
-        // ponha seu código aqui
-        return x + y;
+    //Metodo para saber o overall do Jogador
+    public double valorJogador(int velocidade,int resistencia,int destreza,int implusao,int cabecear,int remate,int passe){
+        return 0.8 *((double)implusao + (double)remate + (double)cabecear + (double)resistencia) + 0.1*(double)velocidade + 0.1*((double)destreza + (double)passe);
+    
     }
+    
 }
