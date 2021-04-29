@@ -2,32 +2,24 @@
 /**
  * Escreva a descrição da classe Guarda_Redes aqui.
  * 
- * @author (seu nome) 
+ * @author (Gerson Junior) 
  * @version (número de versão ou data)
  */
-public class Guarda_Redes
+
+public class Guarda_Redes extends Jogador
 {
-    // variáveis de instância - substitua o exemplo abaixo pelo seu próprio
-    private int x;
-
-    /**
-     * COnstrutor para objetos da classe Guarda_Redes
-     */
-    public Guarda_Redes()
-    {
-        // inicializa variáveis de instância
-        x = 0;
+    
+    //Construtor por omissão
+    public Guarda_Redes(String nome,int posicao,double valorJogador,int velocidade,int resistencia,int destreza,int implusao,int cabecear,int remate,int passe){
+        super(nome, valorJogador, velocidade, resistencia, destreza, implusao, cabecear, remate, passe);
     }
+    
+    public int elasticidade;
 
-    /**
-     * Exemplo de método - substitua este comentário pelo seu próprio
-     * 
-     * @param  y   exemplo de um parâmetro de método
-     * @return     a soma de x com y 
-     */
-    public int sampleMethod(int y)
-    {
-        // ponha seu código aqui
-        return x + y;
+    //Metodo para saber o overall do Jogador
+    public double valorJogador(int velocidade,int resistencia,int destreza,int implusao,int cabecear,int remate,int passe){
+        return 0.6* (double)this.elasticidade + 0.1*(double)remate + 0.3*(double)destreza;
+    
     }
+    
 }

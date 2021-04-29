@@ -2,32 +2,23 @@
 /**
  * Escreva a descrição da classe Medio aqui.
  * 
- * @author (seu nome) 
+ * @author (Gerson Junior) 
  * @version (número de versão ou data)
  */
-public class Medio
+
+public class Medio extends Jogador
 {
-    // variáveis de instância - substitua o exemplo abaixo pelo seu próprio
-    private int x;
-
-    /**
-     * COnstrutor para objetos da classe Medio
-     */
-    public Medio()
-    {
-        // inicializa variáveis de instância
-        x = 0;
+    
+    //Construtor por omissão
+    public Medio(String nome,int posicao,double valorJogador,int velocidade,int resistencia,int destreza,int implusao,int cabecear,int remate,int passe){
+        super(nome, valorJogador, velocidade, resistencia, destreza, implusao, cabecear, remate, passe);
     }
+    
 
-    /**
-     * Exemplo de método - substitua este comentário pelo seu próprio
-     * 
-     * @param  y   exemplo de um parâmetro de método
-     * @return     a soma de x com y 
-     */
-    public int sampleMethod(int y)
-    {
-        // ponha seu código aqui
-        return x + y;
+    //Metodo para saber o overall do Jogador
+    public double valorJogador(int velocidade,int resistencia,int destreza,int implusao,int cabecear,int remate,int passe){
+        return 0.7*((double)passe + (double)destreza + (double)velocidade) + 0.3*((double)resistencia + (double)cabecear + (double)remate+ (double)implusao);
+    
     }
+    
 }

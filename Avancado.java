@@ -1,5 +1,5 @@
 /**
- * Escreva a descrição da classe Lateral aqui.
+ * Escreva a descrição da classe Avancado aqui.
  * 
  * @author (Gerson Junior) 
  * @version (número de versão ou data)
