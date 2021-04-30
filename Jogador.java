@@ -4,6 +4,7 @@
 public class Jogador
 {
     public String nome;
+    public int numeroJogador;
     public double valorJogador;
     public int velocidade;
     public int resistencia;
@@ -12,10 +13,24 @@ public class Jogador
     public int cabecear;
     public int remate;
     public int passe;
-        
+    
+    public Jogador(){
+        this.nome = "";
+        this.numeroJogador = 0;
+        this.valorJogador = 0;
+        this.velocidade = 0;
+        this.resistencia = 0;
+        this.destreza = 0;
+        this.implusao = 0;
+        this.cabecear = 0;
+        this.remate = 0;
+        this.passe = 0;
+    }
+    
     //Construtor parametrizado
-    public Jogador(String nome, double valorJogador, int velocidade, int resistencia, int destreza, int implusao, int cabecear, int remate, int passe){
+    public Jogador(String nome,int numeroJogador, double valorJogador, int velocidade, int resistencia, int destreza, int implusao, int cabecear, int remate, int passe){
         this.nome = nome;
+        this.numeroJogador = numeroJogador;
         this.valorJogador = valorJogador;
         this.velocidade = velocidade;
         this.resistencia = resistencia;
@@ -29,6 +44,7 @@ public class Jogador
     //Construtor de copia
     public Jogador(Jogador umJogador){
         this.nome = umJogador.getNome();
+        this.numeroJogador = umJogador.getnumeroJogador();
         this.valorJogador = umJogador.getValorJogador();
         this.velocidade = umJogador.getVelocidade();
         this.resistencia = umJogador.getResistencia();
@@ -45,6 +61,10 @@ public class Jogador
     
     public double getValorJogador(){
         return this.valorJogador;
+    }
+    
+    public int getnumeroJogador(){
+        return this.numeroJogador;
     }
     
     public int getVelocidade(){
@@ -85,6 +105,10 @@ public class Jogador
         this.valorJogador = valorJogador;
     }
     
+    public void setNumeroJogador(int numeroJogador){
+        this.numeroJogador = numeroJogador;
+    }
+    
     public void setVelocidade(int velocidade){
         this.velocidade = velocidade;
     }
@@ -117,9 +141,10 @@ public class Jogador
     public double valorJogador(int velocidade, int resistencia, int destreza, int implusao, int cabecear, int remate, int passe){
         return ((double) velocidade + (double) resistencia + (double) destreza + (double) implusao + (double)cabecear + (double) remate + (double) passe) / 7;
     }
-    
-        public Object clone() throws CloneNotSupportedException
+
+    public Object clone() throws CloneNotSupportedException
     {
         return super.clone();
     }
+    
 }
