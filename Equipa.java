@@ -1,13 +1,15 @@
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Equipa
 {
     private String nome;
-    private int nrJogadoresPrincipais;
-    private int nrJogadoresSuplentes;
-    private List<Jogador> jogadoresPrincipais;
+    private int nrJogadores;
+    private Map <String,Jogador> jogadores;
+    private List<Jogador> jogadoresTitulares;
     private List<Jogador> jogadoresSuplentes;
     private int nrDefesas;
     private int nrMedios;
@@ -19,10 +21,8 @@ public class Equipa
     
     public Equipa(){
         this.nome = "";
-        this.nrJogadoresPrincipais = 0;
-        this.nrJogadoresSuplentes = 0;
-        this.jogadoresPrincipais = new ArrayList<>(11);
-        this.jogadoresSuplentes = new ArrayList<>(11);
+        this.nrJogadores = 0;
+        this.jogadores = new HashMap<>();
         this.nrDefesas = 0;
         this.nrMedios = 0;
         this.nrAvancados = 0;
@@ -30,12 +30,10 @@ public class Equipa
         this.nrGuardaRedes = 0;
     }
     
-    public Equipa(String nome, int nrJogadoresPrincipais, int nrJogadoresSuplentes, List<Jogador> jogadoresPrincipais, List<Jogador> jogadoresSuplentes, int nrDefesas, int nrMedios, int nrAvancados, int nrLaterais, int nrGuardaRedes){
+    public Equipa(String nome, int nrJogadores, Map<String,Jogador> jogadores, int nrDefesas, int nrMedios, int nrAvancados, int nrLaterais, int nrGuardaRedes){
         this.nome = nome;
-        this.nrJogadoresPrincipais = nrJogadoresPrincipais;
-        this.nrJogadoresSuplentes = nrJogadoresSuplentes;
-        this.jogadoresPrincipais = jogadoresPrincipais.stream().map(Jogador::clone).collect(Collectors.toList());
-        this.jogadoresSuplentes = new ArrayList<>(11);
+        this.nrJogadores = nrJogadores;
+        this.jogadores = jogadores.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue)); //carefull
         this.nrDefesas = nrDefesas;
         this.nrMedios = nrMedios;
         this.nrAvancados = nrAvancados;
@@ -45,10 +43,8 @@ public class Equipa
     
     public Equipa(Equipa equipa){
         this.nome = equipa.getNome();
-        this.nrJogadoresPrincipais = equipa.getNrJogadoresPrincipais();
-        this.nrJogadoresSuplentes = equipa.getNrJogadoresSuplentes();
-        this.jogadoresPrincipais = equipa.getJogadoresPrincipais();
-        this.jogadoresSuplentes = equipa.getJogadoresSuplentes();
+        this.nrJogadores = equipa.getNrJogadores();
+        this.jogadores = equipa.getJogadores();
         this.nrDefesas = equipa.getNrDefesas();
         this.nrMedios = equipa.getNrMedios();
         this.nrAvancados = equipa.getNrAvancados();
@@ -62,20 +58,12 @@ public class Equipa
         return this.nome;
     }
     
-    public int getNrJogadoresPrincipais(){
-        return this.nrJogadoresPrincipais;
+    public int getNrJogadores(){
+        return this.nrJogadores;
     }
     
-    public int getNrJogadoresSuplentes(){
-        return this.nrJogadoresSuplentes;
-    }
-    
-    public List<Jogador> getJogadoresPrincipais(){
-        return this.jogadoresPrincipais.stream().map(Jogador::clone).collect(Collectors.toList());
-    }
-    
-    public List<Jogador> getJogadoresSuplentes(){
-        return this.jogadoresSuplentes.stream().map(Jogador::clone).collect(Collectors.toList());
+    public Map<String,Jogador> getJogadores(){
+        return this.jogadores.entrySet().stream().map(Jogador::setValue(getValue.clone())).collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue));
     }
     
     public int getNrDefesas(){
@@ -98,70 +86,82 @@ public class Equipa
         return this.nrGuardaRedes;
     }
     
+    public List getJogadoresSuplentes(){
+        return this.jogadoresSuplentes;
+    }
+    
+    public List getJogadoresTitulares(){
+        return this.jogadoresTitulares;
+    } 
+    
     //-----------------------------------------------------seters------------------------------------------------------
     
     public void setNome(String nome){
         this.nome = nome;
     }
     
-    public void setNrJogadoresPrinciapais(int nrJogadoresPrincipais){
-        this.nrJogadoresPrincipais = nrJogadoresPrincipais;
+    public void setNrJogadoresTitulares(int nrJogadoresTitulares){
+        this.nrJogadores = nrJogadores;
     }
     
-    public void getNrJogadoresSuplentes(int nrJogadoresSuplentes){
-        this.nrJogadoresSuplentes = nrJogadoresSuplentes;
+    public void setJogadoresPrincipais(Map<String,Jogador> j){
+        this.jogadores = j.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue));
     }
     
-    public void setJogadoresPrincipais(List<Jogador> jogadoresPrincipais){
-        this.jogadoresPrincipais = jogadoresPrincipais.stream().map(Jogador::clone).collect(Collectors.toList());
-    }
-    
-    public void getJogadoresSuplentes(List<Jogador> jogadoresSuplentes){
-        this.jogadoresSuplentes = jogadoresSuplentes.stream().map(Jogador::clone).collect(Collectors.toList());
-    }
-    
-    public void getNrdefesas(int nrDefesas){
+    public void setNrdefesas(int nrDefesas){
         this.nrDefesas = nrDefesas;
     }
     
-    public void getNrMedios(int nrMedios){
+    public void setNrMedios(int nrMedios){
         this.nrMedios = nrMedios;
     }
     
-    public void getNrAvancados(int nrAvancados){
+    public void setNrAvancados(int nrAvancados){
         this.nrAvancados = nrAvancados;
     }
     
-    public void getNrLaterais(int nrLaterais){
+    public void setNrLaterais(int nrLaterais){
         this.nrLaterais = nrLaterais;
     }
     
-    public void getNrGuardaRedes(int nrGuardaRedes){
+    public void setNrGuardaRedes(int nrGuardaRedes){
         this.nrGuardaRedes = nrGuardaRedes;
     }
     
+    public void setJogadoresSuplentes(List<Jogador> jSuplentes){
+        this.jogadoresSuplentes = jSuplentes;
+    }
+    
+    public void setJogadoresTitulares(List<Jogador> jTitulares){
+        this.jogadoresTitulares = jTitulares;
+    } 
+    
     //-----------------------------------------------------métodos------------------------------------------------------
     
-    public int addJogadorPrincipal(Jogador jogador){
-        if (this.nrJogadoresPrincipais < 11){
-            this.jogadoresPrincipais.add(jogador);
-            this.nrJogadoresPrincipais++;
+    public int addJogador(Jogador jogador){
+        if (this.nrJogadores < 18){
+            this.jogadores.put(jogador.getName(),jogador);
+            this.nrJogadores++;
             return 0;
         }
         else return 1;
     }
     
-    public int addJogadorSuplente(Jogador jogador){
-        if (this.nrJogadoresSuplentes < 11){
-            this.jogadoresSuplentes.add(jogador);
-            this.nrJogadoresSuplentes++;
-            return 0;
-        }
-        else return 1;
+    public int removeJogador(Jogador jogador){
+        this.jogadores.remove(jogador);
     }
     
-    public Double valorEquipa(){
-        return this.jogadoresPrincipais.stream().mapToDouble(Jogador::valorJogador).sum();
-    }
+    public List findJogadoresSuplentes(List<Jogador> titulares){
+        
+        List<Jogador> suplentes = new ArrayList();
+        
+        //this.jogadores.getValue.stream.map(Jogador::removeJogador).collect(Collectors.toList
+        
+        for(Jogador j: this.jogadores ){
+            
+            
+            
+        }
+        
 
 }
