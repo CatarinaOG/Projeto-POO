@@ -142,9 +142,9 @@ public class Jogador
         return ((double) velocidade + (double) resistencia + (double) destreza + (double) implusao + (double)cabecear + (double) remate + (double) passe) / 7;
     }
 
-    public Object clone() throws CloneNotSupportedException
-    {
-        return super.clone();
+    public Jogador clone(){
+        Jogador jog = new Jogador(this.nome ,this.numeroJogador ,this.valorJogador ,this.velocidade ,this.resistencia , this.destreza ,this.implusao ,this.cabecear ,this.remate ,this.passe);
+        return jog;
     }
-    
+
 }
