@@ -117,9 +117,9 @@ public class Jogador
     public double valorJogador(int velocidade, int resistencia, int destreza, int implusao, int cabecear, int remate, int passe){
         return ((double) velocidade + (double) resistencia + (double) destreza + (double) implusao + (double)cabecear + (double) remate + (double) passe) / 7;
     }
-    /*
-    public void cloneJogador(){
-        return new Jogador(this);
+    
+        public Object clone() throws CloneNotSupportedException
+    {
+        return super.clone();
     }
-    */
 }
