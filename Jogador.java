@@ -138,8 +138,14 @@ public class Jogador
     } 
     
     //Metodo para saber o overall do Jogador
-    public double valorJogador(int velocidade, int resistencia, int destreza, int implusao, int cabecear, int remate, int passe){
-        return ((double) velocidade + (double) resistencia + (double) destreza + (double) implusao + (double)cabecear + (double) remate + (double) passe) / 7;
+    public double valorJogador(Jogador umJogador){
+        return ((double)umJogador.getVelocidade()+
+                (double)umJogador.getResistencia()+ 
+                (double)umJogador.getDestreza()+ 
+                (double)umJogador.getImplusao()+ 
+                (double)umJogador.getCabecear()+ 
+                (double)umJogador.getRemate()+ 
+                (double)umJogador.getPasse()) / 7;
     }
 
     public Jogador clone(){
