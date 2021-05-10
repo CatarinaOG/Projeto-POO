@@ -9,15 +9,17 @@ public class Avancado extends Jogador
 {
     
     //Construtor por omissão
-    public Avancado(String nome,int numeroJogador,double valorJogador,int velocidade,int resistencia,int destreza,int implusao,int cabecear,int remate,int passe){
-        super(nome, numeroJogador, valorJogador, velocidade, resistencia, destreza, implusao, cabecear, remate, passe);
+    public Avancado(String nome,int numeroJogador ,int velocidade,int resistencia ,int destreza, int implusao, int cabecear,int remate,int passe, double valorJogador){
+        super(nome, numeroJogador, velocidade, resistencia, destreza, implusao, cabecear, remate, passe, valorJogador);
     }
     
+
     //Metodo para saber o overall do Jogador
-    public double valorJogador(Jogador avancado){
-        return 0.8 *((double)avancado.getImplusao()+(double)avancado.getRemate()+(double)avancado.getCabecear()+(double)avancado.getResistencia())+
-               0.1*(double)avancado.getVelocidade()+
-               0.1*((double)avancado.getDestreza() +(double)avancado.Passe());
+    public double valorJogador(){
+        return 0.8 *((double)this.implusao + (double)this.remate + (double)this.cabecear + (double)this.resistencia) + 0.1*(double)this.velocidade + 0.1*((double)this.destreza + (double)this.passe);
     }
     
+    public Jogador clone(){
+        return new Avancado(this.nome, this.numeroJogador, this.velocidade, this.resistencia, this.destreza, this.implusao, this.cabecear, this.remate, this.passe, this.valorJogador);   
+    }
 }

@@ -11,11 +11,6 @@ public class Equipa
     private Map <String,Jogador> jogadores;
     private List<Jogador> jogadoresTitulares;
     private List<Jogador> jogadoresSuplentes;
-    private int nrDefesas;
-    private int nrMedios;
-    private int nrAvancados;
-    private int nrLaterais;
-    private int nrGuardaRedes;
     
     //-----------------------------------------------------construtores------------------------------------------------------
     
@@ -23,33 +18,24 @@ public class Equipa
         this.nome = "";
         this.nrJogadores = 0;
         this.jogadores = new HashMap<>();
-        this.nrDefesas = 0;
-        this.nrMedios = 0;
-        this.nrAvancados = 0;
-        this.nrLaterais = 0;
-        this.nrGuardaRedes = 0;
+        this.jogadoresTitulares = new ArrayList<>(11);
+        this.jogadoresSuplentes = new ArrayList<>(11);
     }
     
-    public Equipa(String nome, int nrJogadores, Map<String,Jogador> jogadores, int nrDefesas, int nrMedios, int nrAvancados, int nrLaterais, int nrGuardaRedes){
+    public Equipa(String nome, int nrJogadores, Map<String,Jogador> jogadores){
         this.nome = nome;
         this.nrJogadores = nrJogadores;
-        this.jogadores = jogadores.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue)); //carefull
-        this.nrDefesas = nrDefesas;
-        this.nrMedios = nrMedios;
-        this.nrAvancados = nrAvancados;
-        this.nrLaterais = nrLaterais;
-        this.nrGuardaRedes = nrGuardaRedes;
+        this.jogadores = jogadores.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue));
+        this.jogadoresTitulares = new ArrayList<>(11);
+        this.jogadoresSuplentes = new ArrayList<>(11);
     }
     
     public Equipa(Equipa equipa){
         this.nome = equipa.getNome();
         this.nrJogadores = equipa.getNrJogadores();
         this.jogadores = equipa.getJogadores();
-        this.nrDefesas = equipa.getNrDefesas();
-        this.nrMedios = equipa.getNrMedios();
-        this.nrAvancados = equipa.getNrAvancados();
-        this.nrLaterais = equipa.getNrLaterais();
-        this.nrGuardaRedes = equipa.getNrGuardaRedes();
+        this.jogadoresTitulares = new ArrayList<>(11);
+        this.jogadoresSuplentes = new ArrayList<>(11);
     }
     
     //-----------------------------------------------------gets------------------------------------------------------
@@ -63,36 +49,16 @@ public class Equipa
     }
     
     public Map<String,Jogador> getJogadores(){
-        return this.jogadores.entrySet().stream().map(Jogador::setValue(getValue.clone())).collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue));
+        return this.jogadores.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue));
     }
     
-    public int getNrDefesas(){
-        return this.nrDefesas;
+    public List<Jogador> getJogadoresTitulares(){
+        return this.jogadoresTitulares;
     }
     
-    public int getNrMedios(){
-        return this.nrMedios;
-    }
-    
-    public int getNrAvancados(){
-        return this.nrAvancados;
-    }
-    
-    public int getNrLaterais(){
-        return this.nrLaterais;
-    }
-    
-    public int getNrGuardaRedes(){
-        return this.nrGuardaRedes;
-    }
-    
-    public List getJogadoresSuplentes(){
+    public List<Jogador> getJogadoresSuplentes(){
         return this.jogadoresSuplentes;
     }
-    
-    public List getJogadoresTitulares(){
-        return this.jogadoresTitulares;
-    } 
     
     //-----------------------------------------------------seters------------------------------------------------------
     
@@ -100,68 +66,37 @@ public class Equipa
         this.nome = nome;
     }
     
-    public void setNrJogadoresTitulares(int nrJogadoresTitulares){
+    public void setNrJogadores(int nrJogadores){
         this.nrJogadores = nrJogadores;
     }
     
-    public void setJogadoresPrincipais(Map<String,Jogador> j){
-        this.jogadores = j.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue));
+    public void setJogadores(Map<String,Jogador> j){
+        this.jogadores = j;
     }
     
-    public void setNrdefesas(int nrDefesas){
-        this.nrDefesas = nrDefesas;
+    public void setJogadoresTitulares(List<Jogador> jogadoresTitulares){
+        this.jogadoresTitulares = jogadoresTitulares;
     }
     
-    public void setNrMedios(int nrMedios){
-        this.nrMedios = nrMedios;
+    public void setJogadoresSuplentes(List<Jogador> jogadoresSuplentes){
+        this.jogadoresSuplentes = jogadoresSuplentes;
     }
-    
-    public void setNrAvancados(int nrAvancados){
-        this.nrAvancados = nrAvancados;
-    }
-    
-    public void setNrLaterais(int nrLaterais){
-        this.nrLaterais = nrLaterais;
-    }
-    
-    public void setNrGuardaRedes(int nrGuardaRedes){
-        this.nrGuardaRedes = nrGuardaRedes;
-    }
-    
-    public void setJogadoresSuplentes(List<Jogador> jSuplentes){
-        this.jogadoresSuplentes = jSuplentes;
-    }
-    
-    public void setJogadoresTitulares(List<Jogador> jTitulares){
-        this.jogadoresTitulares = jTitulares;
-    } 
+
     
     //-----------------------------------------------------métodos------------------------------------------------------
     
     public int addJogador(Jogador jogador){
         if (this.nrJogadores < 18){
-            this.jogadores.put(jogador.getName(),jogador);
+            this.jogadores.put(jogador.getNome(),jogador);
             this.nrJogadores++;
             return 0;
         }
         else return 1;
     }
     
-    public int removeJogador(Jogador jogador){
+    public void removeJogador(Jogador jogador){
         this.jogadores.remove(jogador);
+        this.nrJogadores--;
     }
-    
-    public List findJogadoresSuplentes(List<Jogador> titulares){
-        
-        List<Jogador> suplentes = new ArrayList();
-        
-        //this.jogadores.getValue.stream.map(Jogador::removeJogador).collect(Collectors.toList
-        
-        for(Jogador j: this.jogadores ){
-            
-            
-            
-        }
-        
 
 }

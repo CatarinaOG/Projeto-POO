@@ -5,7 +5,6 @@ public class Jogador
 {
     public String nome;
     public int numeroJogador;
-    public double valorJogador;
     public int velocidade;
     public int resistencia;
     public int destreza;
@@ -13,11 +12,11 @@ public class Jogador
     public int cabecear;
     public int remate;
     public int passe;
+    public double valorJogador;
     
     public Jogador(){
         this.nome = "";
         this.numeroJogador = 0;
-        this.valorJogador = 0;
         this.velocidade = 0;
         this.resistencia = 0;
         this.destreza = 0;
@@ -25,13 +24,13 @@ public class Jogador
         this.cabecear = 0;
         this.remate = 0;
         this.passe = 0;
+        this.valorJogador = 0;
     }
     
     //Construtor parametrizado
-    public Jogador(String nome,int numeroJogador, double valorJogador, int velocidade, int resistencia, int destreza, int implusao, int cabecear, int remate, int passe){
+    public Jogador(String nome,int numeroJogador, int velocidade, int resistencia, int destreza, int implusao, int cabecear, int remate, int passe, double valorJogador){
         this.nome = nome;
         this.numeroJogador = numeroJogador;
-        this.valorJogador = valorJogador;
         this.velocidade = velocidade;
         this.resistencia = resistencia;
         this.destreza = destreza;
@@ -39,13 +38,13 @@ public class Jogador
         this.cabecear = cabecear;
         this.remate = remate;
         this.passe = passe;
+        this.valorJogador = valorJogador;
     }
     
     //Construtor de copia
     public Jogador(Jogador umJogador){
         this.nome = umJogador.getNome();
         this.numeroJogador = umJogador.getnumeroJogador();
-        this.valorJogador = umJogador.getValorJogador();
         this.velocidade = umJogador.getVelocidade();
         this.resistencia = umJogador.getResistencia();
         this.destreza = umJogador.getDestreza();
@@ -53,14 +52,11 @@ public class Jogador
         this.cabecear = umJogador.getCabecear();
         this.remate = umJogador.getRemate();
         this.passe = umJogador.getPasse();
+        this.valorJogador = umJogador.getValorJogador();
     }  
     
     public String getNome(){
         return this.nome;
-    }
-    
-    public double getValorJogador(){
-        return this.valorJogador;
     }
     
     public int getnumeroJogador(){
@@ -95,14 +91,14 @@ public class Jogador
         return this.passe;
     }
     
+    public double getValorJogador(){
+        return this.valorJogador;
+    }
+    
     //--------------------------------------------------------------------------\\
     
     public void setValorJogador(String nome){
         this.nome = nome;
-    }
-    
-    public void setValorJogador(double valorJogador){
-        this.valorJogador = valorJogador;
     }
     
     public void setNumeroJogador(int numeroJogador){
@@ -136,6 +132,10 @@ public class Jogador
     public void setPasse(int passe){
         this.passe = passe;
     } 
+        
+    public void setValorJogador(double valorJogador){
+        this.valorJogador = valorJogador;
+    }
     
     //Metodo para saber o overall do Jogador
     public double valorJogador(Jogador umJogador){
@@ -149,8 +149,7 @@ public class Jogador
     }
 
     public Jogador clone(){
-        Jogador jog = new Jogador(this.nome ,this.numeroJogador ,this.valorJogador ,this.velocidade ,this.resistencia , this.destreza ,this.implusao ,this.cabecear ,this.remate ,this.passe);
-        return jog;
+        return new Jogador(this.nome ,this.numeroJogador ,this.velocidade ,this.resistencia , this.destreza ,this.implusao ,this.cabecear ,this.remate ,this.passe ,this.valorJogador);
     }
 
 }

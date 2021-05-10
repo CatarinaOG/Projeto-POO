@@ -6,7 +6,7 @@ public class Dados
     private Map<String,Equipa> equipas;
     private Map<String,Jogador> jogadores;
     
-    public Base(){
+    public Dados(){
         this.equipas = new HashMap<>();
         this.jogadores = new HashMap<>();
     }
@@ -20,15 +20,13 @@ public class Dados
     }
     
     public void addJogadorToTeam(Jogador j, String t, String tipo){
-        this.equipas.get(t).addJogadorTitular(j);
+        this.equipas.get(t).addJogador(j);
     }
     
     public void switchJogador(Jogador j, String t1, String t2){
         this.equipas.get(t1).removeJogador(j);
         this.equipas.get(t2).addJogador(j);
     }
-    
-    
     
     
     public static void main(String[] args) {

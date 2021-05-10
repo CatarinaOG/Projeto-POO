@@ -8,18 +8,22 @@
 
 public class Guarda_Redes extends Jogador
 {
+    private int elasticidade; 
     
     //Construtor por omissão
-    public Guarda_Redes(String nome,int numeroJogador,double valorJogador,int velocidade,int resistencia,int destreza,int implusao,int cabecear,int remate,int passe){
-        super(nome, numeroJogador, valorJogador, velocidade, resistencia, destreza, implusao, cabecear, remate, passe);
+    public Guarda_Redes(String nome,int numeroJogador ,int velocidade,int resistencia ,int destreza, int implusao, int cabecear,int remate,int passe, int elasticidade, double valorJogador){
+        super(nome, numeroJogador, velocidade, resistencia, destreza, implusao, cabecear, remate, passe, valorJogador);
+        this.elasticidade = elasticidade;
     }
     
-    public int elasticidade;
 
     //Metodo para saber o overall do Jogador
-    public double valorJogador(Jogador guarda_redes){
-        return 0.6* (double)this.elasticidade + 0.1*(double)guarda_redes.getRemate()+ 0.3*(double)guarda_redes.getDestreza();
+    public double valorJogador(){
+        return 0.6* (double)this.elasticidade + 0.1*(double)this.remate + 0.3*(double)this.destreza;
+    }
     
+    public Jogador clone(){
+        return new Guarda_Redes(this.nome, this.numeroJogador, this.velocidade, this.resistencia, this.destreza, this.implusao, this.cabecear, this.remate, this.passe,this.elasticidade, this.valorJogador);
     }
     
 }

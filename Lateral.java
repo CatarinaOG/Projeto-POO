@@ -8,18 +8,21 @@
 
 public class Lateral extends Jogador
 {
+    private int cruzamento;
     
     //Construtor por omissão
-    public Lateral(String nome,int numeroJogador,double valorJogador,int velocidade,int resistencia,int destreza,int implusao,int cabecear,int remate,int passe){
-        super(nome, numeroJogador, valorJogador, velocidade, resistencia, destreza, implusao, cabecear, remate, passe);
+    public Lateral(String nome,int numeroJogador ,int velocidade,int resistencia ,int destreza, int implusao, int cabecear,int remate,int passe, int cruzamento, double valorJogador){
+        super(nome, numeroJogador, velocidade, resistencia, destreza, implusao, cabecear, remate, passe, valorJogador);
+        this.cruzamento = cruzamento;
     }
-    
-    public int cruzamento;
 
     //Metodo para saber o overall do Jogador
-    public double valorJogador(Jogador lateral){
-        return 0.7*((double)velocidade + (double)resistencia + (double)this.cruzamento) + 0.2*((double)cabecear + (double)remate + (double)implusao) + 0.1*((double)destreza + (double)passe);
+    public double valorJogador(){
+        return 0.7*((double)this.velocidade + (double) this.resistencia + (double) this.cruzamento) + 0.2*((double) this.cabecear + (double) this.remate + (double)this.implusao) + 0.1*((double) this.destreza + (double) this.passe);
     
     }
     
+    public Jogador clone(){
+        return new Lateral(this.nome, this.numeroJogador, this.velocidade, this.resistencia, this.destreza, this.implusao, this.cabecear, this.remate, this.passe,this.cruzamento, this.valorJogador);   
+    }
 }
