@@ -1,25 +1,25 @@
 import java.util.Map;
 import java.util.HashMap;
 
-public class Dados
+public class Model
 {
     private Map<String,Equipa> equipas;
     private Map<String,Jogador> jogadores;
     
-    public Dados(){
+    public Model(){
         this.equipas = new HashMap<>();
         this.jogadores = new HashMap<>();
     }
     
     public void createJogador(Jogador j){
-        this.jogadores.put(j.getNome(),j);   
+        this.jogadores.put(j.getNome(),j);
     }
     
     public void createEquipa( Equipa e){
         this.equipas.put(e.getNome(),e);
     }
     
-    public void addJogadorToTeam(Jogador j, String t, String tipo){
+    public void addJogadorToTeam(Jogador j, String t){
         this.equipas.get(t).addJogador(j);
     }
     

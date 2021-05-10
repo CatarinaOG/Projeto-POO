@@ -89,6 +89,7 @@ public class Equipa
         if (this.nrJogadores < 18){
             this.jogadores.put(jogador.getNome(),jogador);
             this.nrJogadores++;
+            jogador.addHistorial(this.getNome());
             return 0;
         }
         else return 1;

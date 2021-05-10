@@ -1,18 +1,23 @@
+import java.util.List;
+import java.util.ArrayList;
+
 //Gerson Henrique de Araujo Junior
 //29-03-2021
 
 public class Jogador
 {
-    public String nome;
-    public int numeroJogador;
-    public int velocidade;
-    public int resistencia;
-    public int destreza;
-    public int implusao;
-    public int cabecear;
-    public int remate;
-    public int passe;
-    public double valorJogador;
+    private String nome;
+    private int numeroJogador;
+    private int velocidade;
+    private int resistencia;
+    private int destreza;
+    private int implusao;
+    private int cabecear;
+    private int remate;
+    private int passe;
+    private double valorJogador;
+    private List<String> historial;
+    
     
     public Jogador(){
         this.nome = "";
@@ -25,10 +30,11 @@ public class Jogador
         this.remate = 0;
         this.passe = 0;
         this.valorJogador = 0;
+        this.historial = new ArrayList<>();
     }
     
     //Construtor parametrizado
-    public Jogador(String nome,int numeroJogador, int velocidade, int resistencia, int destreza, int implusao, int cabecear, int remate, int passe, double valorJogador){
+    public Jogador(String nome,int numeroJogador, int velocidade, int resistencia, int destreza, int implusao, int cabecear, int remate, int passe, double valorJogador, List<String> historial){
         this.nome = nome;
         this.numeroJogador = numeroJogador;
         this.velocidade = velocidade;
@@ -39,12 +45,13 @@ public class Jogador
         this.remate = remate;
         this.passe = passe;
         this.valorJogador = valorJogador;
+        this.historial = historial;
     }
     
     //Construtor de copia
     public Jogador(Jogador umJogador){
         this.nome = umJogador.getNome();
-        this.numeroJogador = umJogador.getnumeroJogador();
+        this.numeroJogador = umJogador.getNumeroJogador();
         this.velocidade = umJogador.getVelocidade();
         this.resistencia = umJogador.getResistencia();
         this.destreza = umJogador.getDestreza();
@@ -53,13 +60,14 @@ public class Jogador
         this.remate = umJogador.getRemate();
         this.passe = umJogador.getPasse();
         this.valorJogador = umJogador.getValorJogador();
+        this.historial = umJogador.getHistorial();
     }  
     
     public String getNome(){
         return this.nome;
     }
     
-    public int getnumeroJogador(){
+    public int getNumeroJogador(){
         return this.numeroJogador;
     }
     
@@ -93,6 +101,10 @@ public class Jogador
     
     public double getValorJogador(){
         return this.valorJogador;
+    }
+    
+    public List<String> getHistorial(){
+        return this.historial;
     }
     
     //--------------------------------------------------------------------------\\
@@ -137,6 +149,14 @@ public class Jogador
         this.valorJogador = valorJogador;
     }
     
+    public void setHistorial(List<String> historial){
+        this.historial = historial;
+    }
+    
+    public void addHistorial(String equipa){
+        this.historial.add(equipa);
+    }
+    
     //Metodo para saber o overall do Jogador
     public double valorJogador(Jogador umJogador){
         return ((double)umJogador.getVelocidade()+
@@ -149,7 +169,7 @@ public class Jogador
     }
 
     public Jogador clone(){
-        return new Jogador(this.nome ,this.numeroJogador ,this.velocidade ,this.resistencia , this.destreza ,this.implusao ,this.cabecear ,this.remate ,this.passe ,this.valorJogador);
+        return new Jogador(this.nome ,this.numeroJogador ,this.velocidade ,this.resistencia , this.destreza ,this.implusao ,this.cabecear ,this.remate ,this.passe ,this.valorJogador, this.historial);
     }
 
 }

@@ -1,3 +1,4 @@
+import java.util.List;
 
 /**
  * Escreva a descrição da classe Defesa aqui.
@@ -10,18 +11,18 @@ public class Defesa extends Jogador
 {
     
     //Construtor por omissão
-    public Defesa(String nome,int numeroJogador ,int velocidade,int resistencia ,int destreza, int implusao, int cabecear,int remate,int passe, double valorJogador){
-        super(nome, numeroJogador, velocidade, resistencia, destreza, implusao, cabecear, remate, passe, valorJogador);
+    public Defesa(String nome,int numeroJogador ,int velocidade,int resistencia ,int destreza, int implusao, int cabecear,int remate,int passe, double valorJogador, List<String> historial){
+        super(nome, numeroJogador, velocidade, resistencia, destreza, implusao, cabecear, remate, passe, valorJogador, historial);
     }
     
 
     //Metodo para saber o overall do Jogador
     public double valorJogador(){
-        return 0.5*(double)this.destreza+ 0.3*(double)this.passe + 0.2*((double)this.velocidade + (double)this.resistencia + (double)this.implusao + (double)this.remate + (double)this.cabecear);
+        return 0.5*(double)this.getDestreza() + 0.3*(double)this.getPasse() + 0.2*((double)this.getVelocidade() + (double)this.getResistencia() + (double)this.getImplusao() + (double)this.getRemate() + (double)this.getCabecear());
     }
     
     public Jogador clone(){
-        return new Defesa(this.nome, this.numeroJogador, this.velocidade, this.resistencia, this.destreza, this.implusao, this.cabecear, this.remate, this.passe, this.valorJogador);   
+        return new Defesa(this.getNome(), this.getNumeroJogador(), this.getVelocidade(), this.getResistencia(), this.getDestreza(), this.getImplusao(), this.getCabecear(), this.getRemate(), this.getPasse(), this.getValorJogador(), this.getHistorial());  
     }
     
 }
