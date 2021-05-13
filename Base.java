@@ -15,9 +15,7 @@ public class Dados
         this.jogadores.put(j.getNome(),j);   
     }
     
-    public void createEquipa( Equipa e){
-        this.equipas.put(e.getNome(),e);
-    }
+    public void createEquipa( Equipa e){ this.equipas.put(e.getNome(),e); }
     
     public void addJogadorToTeam(Jogador j, String t, String tipo){
         this.equipas.get(t).addJogadorTitular(j);

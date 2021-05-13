@@ -4,7 +4,7 @@ import java.util.ArrayList;
 //Gerson Henrique de Araujo Junior
 //29-03-2021
 
-public class Jogador
+public abstract class Jogador
 {
     private String nome;
     private int numeroJogador;
@@ -61,8 +61,8 @@ public class Jogador
         this.passe = umJogador.getPasse();
         this.valorJogador = umJogador.getValorJogador();
         this.historial = umJogador.getHistorial();
-    }  
-    
+    }
+
     public String getNome(){
         return this.nome;
     }
@@ -156,20 +156,4 @@ public class Jogador
     public void addHistorial(String equipa){
         this.historial.add(equipa);
     }
-    
-    //Metodo para saber o overall do Jogador
-    public double valorJogador(Jogador umJogador){
-        return ((double)umJogador.getVelocidade()+
-                (double)umJogador.getResistencia()+ 
-                (double)umJogador.getDestreza()+ 
-                (double)umJogador.getImplusao()+ 
-                (double)umJogador.getCabecear()+ 
-                (double)umJogador.getRemate()+ 
-                (double)umJogador.getPasse()) / 7;
-    }
-
-    public Jogador clone(){
-        return new Jogador(this.nome ,this.numeroJogador ,this.velocidade ,this.resistencia , this.destreza ,this.implusao ,this.cabecear ,this.remate ,this.passe ,this.valorJogador, this.historial);
-    }
-
 }

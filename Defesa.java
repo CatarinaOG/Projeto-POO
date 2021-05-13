@@ -14,7 +14,6 @@ public class Defesa extends Jogador
     public Defesa(String nome,int numeroJogador ,int velocidade,int resistencia ,int destreza, int implusao, int cabecear,int remate,int passe, double valorJogador, List<String> historial){
         super(nome, numeroJogador, velocidade, resistencia, destreza, implusao, cabecear, remate, passe, valorJogador, historial);
     }
-    
 
     //Metodo para saber o overall do Jogador
     public double valorJogador(){
@@ -22,7 +21,7 @@ public class Defesa extends Jogador
     }
     
     public Jogador clone(){
-        return new Defesa(this.getNome(), this.getNumeroJogador(), this.getVelocidade(), this.getResistencia(), this.getDestreza(), this.getImplusao(), this.getCabecear(), this.getRemate(), this.getPasse(), this.getValorJogador(), this.getHistorial());  
+        return new Defesa(this.getNome(), this.getNumeroJogador(), this.getVelocidade(), this.getResistencia(), this.getDestreza(), this.getImplusao(), this.getCabecear(), this.getRemate(), this.getPasse(), this.getValorJogador(), this.getHistorial());
     }
     
 }
