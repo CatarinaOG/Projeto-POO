@@ -156,4 +156,18 @@ public abstract class Jogador
     public void addHistorial(String equipa){
         this.historial.add(equipa);
     }
+
+    public String toString(){
+        StringBuffer sb = new StringBuffer();
+        sb.append("Nome: "+getNome()+"\n");
+        sb.append("NumeroJogador: "+getNumeroJogador()+"\n");
+        sb.append("Velocidade: "+getVelocidade()+"\n");
+        sb.append("Resistencia: "+getResistencia()+"\n");
+        sb.append("Destreza: "+getDestreza()+"\n");
+        sb.append("Impulsao: "+getImplusao()+"\n");
+        sb.append("Cabecear: "+getCabecear()+"\n");
+
+        return sb.toString();
+    }
+
 }

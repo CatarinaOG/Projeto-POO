@@ -33,5 +33,7 @@ public class Guarda_Redes extends Jogador
     public Jogador clone(){
         return new Guarda_Redes(this.getNome(), this.getNumeroJogador(), this.getVelocidade(), this.getResistencia(), this.getDestreza(), this.getImplusao(), this.getCabecear(), this.getRemate(), this.getPasse(),this.elasticidade, this.getValorJogador(), this.getHistorial());
     }
-    
+
+
+
 }

@@ -14,7 +14,12 @@ public class Avancado extends Jogador
     public Avancado(String nome,int numeroJogador ,int velocidade,int resistencia ,int destreza, int implusao, int cabecear,int remate,int passe, double valorJogador, List<String> historial){
         super(nome, numeroJogador, velocidade, resistencia, destreza, implusao, cabecear, remate, passe, valorJogador, historial);
     }
-    
+
+    @Override
+    public String toString() {
+        return null;
+    }
+
 
     //Metodo para saber o overall do Jogador
     public double valorJogador(){

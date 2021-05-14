@@ -11,11 +11,11 @@ public class Model
         this.jogadores = new HashMap<>();
     }
     
-    public void createJogador(Jogador j){
+    public void addJogador(Jogador j){
         this.jogadores.put(j.getNome(),j);
     }
     
-    public void createEquipa( Equipa e){
+    public void addEquipa( Equipa e){
         this.equipas.put(e.getNome(),e);
     }
     
@@ -27,8 +27,9 @@ public class Model
         this.equipas.get(t1).removeJogador(j);
         this.equipas.get(t2).addJogador(j);
     }
-    
-    
-    public static void main(String[] args) {
+
+    public Jogador getJogador(String nome){
+        return jogadores.get(nome);
     }
+
 }

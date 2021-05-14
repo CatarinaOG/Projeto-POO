@@ -15,6 +15,11 @@ public class Defesa extends Jogador
         super(nome, numeroJogador, velocidade, resistencia, destreza, implusao, cabecear, remate, passe, valorJogador, historial);
     }
 
+    @Override
+    public String toString() {
+        return null;
+    }
+
     //Metodo para saber o overall do Jogador
     public double valorJogador(){
         return 0.5*(double)this.getDestreza() + 0.3*(double)this.getPasse() + 0.2*((double)this.getVelocidade() + (double)this.getResistencia() + (double)this.getImplusao() + (double)this.getRemate() + (double)this.getCabecear());

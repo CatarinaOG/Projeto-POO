@@ -26,5 +26,6 @@ public class Medio extends Jogador
     public Jogador clone(){
         return new Medio(this.getNome(), this.getNumeroJogador(), this.getVelocidade(), this.getResistencia(), this.getDestreza(), this.getImplusao(), this.getCabecear(), this.getRemate(), this.getPasse(), this.recuperaçãoDeBolas, this.getValorJogador(), this.getHistorial());
     }
-    
+
+
 }

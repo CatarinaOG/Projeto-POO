@@ -25,4 +25,5 @@ public class Lateral extends Jogador
     public Jogador clone(){
         return new Lateral(this.getNome(), this.getNumeroJogador(), this.getVelocidade(), this.getResistencia(), this.getDestreza(), this.getImplusao(), this.getCabecear(), this.getRemate(), this.getPasse(),this.cruzamento, this.getValorJogador(), this.getHistorial());
     }
+
 }
