@@ -12,13 +12,33 @@ public class Info {
         this.param = Arrays.asList(params);
     }
 
-    public String[] run(){
+    public Jogador getJogador(String classe){
 
-        System.out.print("Escreva o jogador na seguinte forma: ");
-        for( int i=0 ; i<param.size() ; i++)
-             System.out.print(param.get(i)+" ");
+        this.show();
+        Jogador j = null;
 
-        return (scan.nextLine().split(" "));
+        switch (classe){
+            case "GuardaRedes": j = Guarda_Redes.parse(scan.nextLine());
+            case "Defesa": j = Defesa.parse(scan.nextLine());
+            case "Medio": j = Medio.parse(scan.nextLine());
+            case "Avancado": j = Avancado.parse(scan.nextLine());
+            case "Lateral": j = Lateral.parse(scan.nextLine());
+        }
+        return j;
+    }
+
+    public String[] getCampos(){
+        this.show();
+        return scan.nextLine().split(",");
+    }
+
+    private void show(){
+        int i;
+
+        System.out.print("(");
+        for( i=0 ; i<param.size()-1 ; i++)
+            System.out.print(param.get(i)+",");
+        System.out.println(param.get(i)+")");
     }
 
     public void showJogador(Jogador jogador){

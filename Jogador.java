@@ -159,13 +159,16 @@ public abstract class Jogador
 
     public String toString(){
         StringBuffer sb = new StringBuffer();
-        sb.append("Nome: "+getNome()+"\n");
-        sb.append("NumeroJogador: "+getNumeroJogador()+"\n");
-        sb.append("Velocidade: "+getVelocidade()+"\n");
-        sb.append("Resistencia: "+getResistencia()+"\n");
-        sb.append("Destreza: "+getDestreza()+"\n");
-        sb.append("Impulsao: "+getImplusao()+"\n");
-        sb.append("Cabecear: "+getCabecear()+"\n");
+        sb.append("|---------------------------------------------|\n");
+        sb.append("|Nome: "+getNome()+"\n");
+        sb.append("|NumeroJogador: "+getNumeroJogador()+"\n");
+        sb.append("|Velocidade: "+getVelocidade()+"\n");
+        sb.append("|Resistencia: "+getResistencia()+"\n");
+        sb.append("|Destreza: "+getDestreza()+"\n");
+        sb.append("|Impulsao: "+getImplusao()+"\n");
+        sb.append("|Cabecear: "+getCabecear()+"\n");
+        sb.append("|Remate: "+getRemate()+"\n");
+        sb.append("|Passe: "+getPasse()+"\n");
 
         return sb.toString();
     }

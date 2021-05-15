@@ -21,35 +21,48 @@ public class Controller
     public void adicionarJogador(){
         Menu menu = new Menu( new String[] {"Guarda-Redes","Defesa","Medio","Avancado","Lateral"});
         menu.setHandler(1, this::adicionarGuardaRedes);
-        //menu.setHandler(2,()->adicionarDefesa());
-        //menu.setHandler(2,()->adicionarDefesa());
-        //menu.setHandler(2,()->adicionarDefesa());
+        menu.setHandler(2, this::adicionarDefesa);
+        menu.setHandler(2, this::adicionarMedio);
+        menu.setHandler(2, this::adicionarAvancado);
+        menu.setHandler(2, this::adicionarLateral);
         menu.run();
     }
 
     public void adicionarGuardaRedes(){
-
         Info guardaRedes = new Info(new String[] {"Nome","NrCamisola","Velocidade","Resistencia","Destreza","Impulsao","Cabecear","Remate","Passe","Elasticidade"});
-        String[] campos = guardaRedes.run();
-        Guarda_Redes gr = new Guarda_Redes(campos[0],
-                Integer.parseInt(campos[1]),
-                Integer.parseInt(campos[2]),
-                Integer.parseInt(campos[3]),
-                Integer.parseInt(campos[4]),
-                Integer.parseInt(campos[5]),
-                Integer.parseInt(campos[6]),
-                Integer.parseInt(campos[7]),
-                Integer.parseInt(campos[8]),
-                Integer.parseInt(campos[9]),
-                0,
-                new ArrayList<>());
-
+        Jogador gr = guardaRedes.getJogador("GuardaRedes");
         model.addJogador(gr);
     }
 
+    public void adicionarDefesa(){
+        Info guardaRedes = new Info(new String[] {"Nome","NrCamisola","Velocidade","Resistencia","Destreza","Impulsao","Cabecear","Remate","Passe",});
+        Jogador gr = guardaRedes.getJogador("Defesa");
+        model.addJogador(gr);
+    }
+
+    public void adicionarMedio(){
+        Info guardaRedes = new Info(new String[] {"Nome","NrCamisola","Velocidade","Resistencia","Destreza","Impulsao","Cabecear","Remate","Passe","Recuperacao de Bolas"});
+        Jogador gr = guardaRedes.getJogador("Medio");
+        model.addJogador(gr);
+    }
+
+    public void adicionarAvancado(){
+        Info guardaRedes = new Info(new String[] {"Nome","NrCamisola","Velocidade","Resistencia","Destreza","Impulsao","Cabecear","Remate","Passe"});
+        Jogador gr = guardaRedes.getJogador("Avancado");
+        model.addJogador(gr);
+    }
+
+    public void adicionarLateral(){
+        Info guardaRedes = new Info(new String[] {"Nome","NrCamisola","Velocidade","Resistencia","Destreza","Impulsao","Cabecear","Remate","Passe","Cruzamento"});
+        Jogador gr = guardaRedes.getJogador("Lateral");
+        model.addJogador(gr);
+    }
+
+
+
     private void verJogador(){
         Info jogador = new Info( new String[] {"Nome"});
-        String[] campos = jogador.run();
+        String[] campos = jogador.getCampos();
 
         Jogador j = model.getJogador(campos[0]);
         jogador.showJogador(j);

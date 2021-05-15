@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,11 +16,6 @@ public class Defesa extends Jogador
         super(nome, numeroJogador, velocidade, resistencia, destreza, implusao, cabecear, remate, passe, valorJogador, historial);
     }
 
-    @Override
-    public String toString() {
-        return null;
-    }
-
     //Metodo para saber o overall do Jogador
     public double valorJogador(){
         return 0.5*(double)this.getDestreza() + 0.3*(double)this.getPasse() + 0.2*((double)this.getVelocidade() + (double)this.getResistencia() + (double)this.getImplusao() + (double)this.getRemate() + (double)this.getCabecear());
@@ -27,6 +23,33 @@ public class Defesa extends Jogador
     
     public Jogador clone(){
         return new Defesa(this.getNome(), this.getNumeroJogador(), this.getVelocidade(), this.getResistencia(), this.getDestreza(), this.getImplusao(), this.getCabecear(), this.getRemate(), this.getPasse(), this.getValorJogador(), this.getHistorial());
+    }
+
+    public static Defesa parse(String input){
+        String[] campos = input.split(",");
+        Defesa d = new Defesa(campos[0], Integer.parseInt(campos[1]),
+                Integer.parseInt(campos[2]),
+                Integer.parseInt(campos[3]),
+                Integer.parseInt(campos[4]),
+                Integer.parseInt(campos[5]),
+                Integer.parseInt(campos[6]),
+                Integer.parseInt(campos[7]),
+                Integer.parseInt(campos[8]),
+                0,
+                new ArrayList<>());
+
+        d.setValorJogador(d.valorJogador());
+        return d;
+    }
+
+    public String toString(){
+        String s = super.toString();
+        StringBuffer sb = new StringBuffer();
+
+        sb.append(s);
+        sb.append("\n|---------------------------------------------|\n");
+
+        return sb.toString();
     }
     
 }
