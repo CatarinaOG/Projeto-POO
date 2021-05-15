@@ -2,9 +2,9 @@ import java.util.ArrayList;
 
 public class Controller
 {
-    
+
     private Model model;
-    
+
     public Controller(){
         this.model = new Model();
     }
@@ -68,6 +68,17 @@ public class Controller
         jogador.showJogador(j);
     }
 
+    public void guardaEstado(String ficheiro) throws FileNotFoundException, IOException {
+        File f = new File(ficheiro);
+        if(!f.exists()){
+            f.createNewFile();
+        }
+        FileOutputStream fos = new FileOutputStream(f);
 
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(this);
+        oos.flush();
+        oos.close();
+    }
 
 }
