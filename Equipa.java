@@ -1,8 +1,5 @@
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Equipa
 {
@@ -14,8 +11,8 @@ public class Equipa
     
     //-----------------------------------------------------construtores------------------------------------------------------
     
-    public Equipa(){
-        this.nome = "";
+    public Equipa(String nome){
+        this.nome = nome;
         this.nrJogadores = 0;
         this.jogadores = new HashMap<>();
         this.jogadoresTitulares = new ArrayList<>(11);
@@ -82,22 +79,33 @@ public class Equipa
         this.jogadoresSuplentes = jogadoresSuplentes;
     }
 
+    //---------------------------------------------------métodos base---------------------------------------------------
+
+    public Equipa clone(){
+        return new Equipa(this.getNome(),this.getNrJogadores(),this.getJogadores());
+    }
+
+    public String toString(){
+        StringBuffer sb = new StringBuffer();
+
+        for(Jogador j : this.jogadores.values() )
+            sb.append(j.toString());
+
+        return sb.toString();
+    }
     
     //-----------------------------------------------------métodos------------------------------------------------------
     
-    public int addJogador(Jogador jogador){
+    public void addJogador(Jogador jogador){
         if (this.nrJogadores < 18){
             this.jogadores.put(jogador.getNome(),jogador);
             this.nrJogadores++;
             jogador.addHistorial(this.getNome());
-            return 0;
         }
-        else return 1;
     }
     
     public void removeJogador(Jogador jogador){
         this.jogadores.remove(jogador);
         this.nrJogadores--;
     }
-
 }

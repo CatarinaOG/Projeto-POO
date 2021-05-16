@@ -10,19 +10,33 @@ import java.util.List;
 
 public class Defesa extends Jogador
 {
-    
-    //Construtor por omissão
-    public Defesa(String nome,int numeroJogador ,int velocidade,int resistencia ,int destreza, int implusao, int cabecear,int remate,int passe, double valorJogador, List<String> historial){
-        super(nome, numeroJogador, velocidade, resistencia, destreza, implusao, cabecear, remate, passe, valorJogador, historial);
+
+    //--------------------------------------------------------contrutores---------------------------------------------------------
+    public Defesa(String nome,int numeroJogador ,int velocidade,int resistencia ,int destreza, int impulsao, int cabecear,int remate,int passe, double valorJogador, List<String> historial){
+        super(nome, numeroJogador, velocidade, resistencia, destreza, impulsao, cabecear, remate, passe, valorJogador, historial);
     }
+
+
+    //--------------------------------------------------------metodos base---------------------------------------------------------
+    public Jogador clone(){
+        return new Defesa(this.getNome(), this.getNrCamisola(), this.getVelocidade(), this.getResistencia(), this.getDestreza(), this.getImpulsao(), this.getCabecear(), this.getRemate(), this.getPasse(), this.getValorJogador(), this.getHistorial());
+    }
+
+    public String toString(){
+        String s = super.toString();
+        StringBuffer sb = new StringBuffer();
+
+        sb.append(s);
+        sb.append("\n|---------------------------------------------|\n");
+
+        return sb.toString();
+    }
+
+    //--------------------------------------------------------metodos---------------------------------------------------------
 
     //Metodo para saber o overall do Jogador
     public double valorJogador(){
-        return 0.5*(double)this.getDestreza() + 0.3*(double)this.getPasse() + 0.2*((double)this.getVelocidade() + (double)this.getResistencia() + (double)this.getImplusao() + (double)this.getRemate() + (double)this.getCabecear());
-    }
-    
-    public Jogador clone(){
-        return new Defesa(this.getNome(), this.getNumeroJogador(), this.getVelocidade(), this.getResistencia(), this.getDestreza(), this.getImplusao(), this.getCabecear(), this.getRemate(), this.getPasse(), this.getValorJogador(), this.getHistorial());
+        return 0.5*(double)this.getDestreza() + 0.3*(double)this.getPasse() + 0.2*((double)this.getVelocidade() + (double)this.getResistencia() + (double)this.getImpulsao() + (double)this.getRemate() + (double)this.getCabecear());
     }
 
     public static Defesa parse(String input){
@@ -42,14 +56,6 @@ public class Defesa extends Jogador
         return d;
     }
 
-    public String toString(){
-        String s = super.toString();
-        StringBuffer sb = new StringBuffer();
 
-        sb.append(s);
-        sb.append("\n|---------------------------------------------|\n");
-
-        return sb.toString();
-    }
     
 }

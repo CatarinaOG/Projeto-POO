@@ -12,18 +12,18 @@ public class Info {
         this.param = Arrays.asList(params);
     }
 
-    public Jogador getJogador(String classe){
-
+    public Jogador getJogador(int i){
         this.show();
         Jogador j = null;
 
-        switch (classe){
-            case "GuardaRedes": j = Guarda_Redes.parse(scan.nextLine());
-            case "Defesa": j = Defesa.parse(scan.nextLine());
-            case "Medio": j = Medio.parse(scan.nextLine());
-            case "Avancado": j = Avancado.parse(scan.nextLine());
-            case "Lateral": j = Lateral.parse(scan.nextLine());
+        switch (i){
+            case 1: j = Guarda_Redes.parse(scan.nextLine()); break;
+            case 2: j = Defesa.parse(scan.nextLine()); break;
+            case 3: j = Medio.parse(scan.nextLine()); break;
+            case 4: j = Avancado.parse(scan.nextLine()); break;
+            case 5: j = Lateral.parse(scan.nextLine()); break;
         }
+
         return j;
     }
 
@@ -43,8 +43,10 @@ public class Info {
 
     public void showJogador(Jogador jogador){
         System.out.println(jogador.toString());
+    }
 
-
+    public void showEquipa(Equipa equipa){
+        System.out.println(equipa.toString());
     }
 
 }
