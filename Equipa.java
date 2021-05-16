@@ -5,7 +5,7 @@ public class Equipa
 {
     private String nome;
     private int nrJogadores;
-    private Map <String,Jogador> jogadores;
+    private Map <Integer,Jogador> jogadores;
     private List<Jogador> jogadoresTitulares;
     private List<Jogador> jogadoresSuplentes;
     
@@ -19,10 +19,10 @@ public class Equipa
         this.jogadoresSuplentes = new ArrayList<>(11);
     }
     
-    public Equipa(String nome, int nrJogadores, Map<String,Jogador> jogadores){
+    public Equipa(String nome, int nrJogadores, Map<Integer,Jogador> jogadores){
         this.nome = nome;
         this.nrJogadores = nrJogadores;
-        this.jogadores = jogadores.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue));
+        this.jogadores = jogadores.values().stream().collect(Collectors.toMap( Jogador::getNrCamisola , Jogador::clone));
         this.jogadoresTitulares = new ArrayList<>(11);
         this.jogadoresSuplentes = new ArrayList<>(11);
     }
@@ -45,8 +45,8 @@ public class Equipa
         return this.nrJogadores;
     }
     
-    public Map<String,Jogador> getJogadores(){
-        return this.jogadores.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue));
+    public Map<Integer,Jogador> getJogadores(){
+        return this.jogadores.values().stream().collect(Collectors.toMap( Jogador::getNrCamisola , Jogador::clone));
     }
     
     public List<Jogador> getJogadoresTitulares(){
@@ -67,7 +67,7 @@ public class Equipa
         this.nrJogadores = nrJogadores;
     }
     
-    public void setJogadores(Map<String,Jogador> j){
+    public void setJogadores(Map<Integer,Jogador> j){
         this.jogadores = j;
     }
     
@@ -88,7 +88,7 @@ public class Equipa
     public String toString(){
         StringBuffer sb = new StringBuffer();
 
-        for(Jogador j : this.jogadores.values() )
+        for(Jogador j : this.jogadores.values())
             sb.append(j.toString());
 
         return sb.toString();
@@ -98,7 +98,7 @@ public class Equipa
     
     public void addJogador(Jogador jogador){
         if (this.nrJogadores < 18){
-            this.jogadores.put(jogador.getNome(),jogador);
+            this.jogadores.put(jogador.getNrCamisola(),jogador);
             this.nrJogadores++;
             jogador.addHistorial(this.getNome());
         }
@@ -108,4 +108,10 @@ public class Equipa
         this.jogadores.remove(jogador);
         this.nrJogadores--;
     }
+
+    public static Equipa parse(String input){
+        String[] campos = input.split(",");
+        return new Equipa(campos[0]);
+    }
+
 }

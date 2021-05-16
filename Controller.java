@@ -65,7 +65,7 @@ public class Controller
         Info jogador = new Info( new String[] {"Nome"});
         String[] campos = jogador.getCampos();
 
-        Jogador j = model.getJogador(campos[0]).clone();
+        Jogador j = model.getJogador(Integer.parseInt(campos[0])).clone();
         jogador.showJogador(j);
     }
 
@@ -88,7 +88,7 @@ public class Controller
         Info jog_equipa = new Info(new String[] {"Jogador","Equipa"});
         String[] campos = jog_equipa.getCampos();
 
-        model.addJogadorToTeam(campos[0],campos[1]);
+        model.addJogadorToTeam(Integer.parseInt(campos[0]),campos[1]);
 
     }
 
