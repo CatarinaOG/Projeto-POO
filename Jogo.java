@@ -12,14 +12,11 @@ public class Jogo{
     private int golosFora;
     private Map<Integer,Jogador> jogadoresCasa;
     private Map<Integer,Jogador> jogadoresFora;
-    Map<Integer,Integer> substituicoesCasa = new HashMap<>();
-    Map<Integer,Integer> substitucoesFora = new HashMap<>();
+    private Map<Integer,Integer> substituicoesCasa = new HashMap<>();
+    private Map<Integer,Integer> substitucoesFora = new HashMap<>();
+    private final LocalDate data;
 
-    private LocalDate data;
-    private int estadoJogo;
-    private static final int porIniciar = 0;
-    private static final int aDecorrer = 1;
-    private static final int terminado = 2;
+    //----------------------------------------------------------Construtores------------------------------------------------------------
 
     public Jogo (String ec, String ef, int gc, int gf, LocalDate d,  Map<Integer,Jogador> jc, Map<Integer, Integer> sc,  Map<Integer,Jogador> jf, Map<Integer, Integer> sf){
         equipaCasa = ec;
@@ -32,6 +29,85 @@ public class Jogo{
         substituicoesCasa = new HashMap<>(sc);
         substitucoesFora = new HashMap<>(sf);
     }
+
+    //----------------------------------------------------------Gets e Sets------------------------------------------------------------
+    public String getEquipaCasa() {
+        return equipaCasa;
+    }
+
+    public void setEquipaCasa(String equipaCasa) {
+        this.equipaCasa = equipaCasa;
+    }
+
+    public String getEquipaFora() {
+        return equipaFora;
+    }
+
+    public void setEquipaFora(String equipaFora) {
+        this.equipaFora = equipaFora;
+    }
+
+    public int getGolosCasa() {
+        return golosCasa;
+    }
+
+    public void setGolosCasa(int golosCasa) {
+        this.golosCasa = golosCasa;
+    }
+
+    public int getGolosFora() {
+        return golosFora;
+    }
+
+    public void setGolosFora(int golosFora) {
+        this.golosFora = golosFora;
+    }
+
+    public Map<Integer, Jogador> getJogadoresCasa() {
+        return jogadoresCasa;
+    }
+
+    public void setJogadoresCasa(Map<Integer, Jogador> jogadoresCasa) {
+        this.jogadoresCasa = jogadoresCasa;
+    }
+
+    public Map<Integer, Jogador> getJogadoresFora() {
+        return jogadoresFora;
+    }
+
+    public void setJogadoresFora(Map<Integer, Jogador> jogadoresFora) {
+        this.jogadoresFora = jogadoresFora;
+    }
+
+    public Map<Integer, Integer> getSubstituicoesCasa() {
+        return substituicoesCasa;
+    }
+
+    public void setSubstituicoesCasa(Map<Integer, Integer> substituicoesCasa) {
+        this.substituicoesCasa = substituicoesCasa;
+    }
+
+    public Map<Integer, Integer> getSubstitucoesFora() {
+        return substitucoesFora;
+    }
+
+    public void setSubstitucoesFora(Map<Integer, Integer> substitucoesFora) {
+        this.substitucoesFora = substitucoesFora;
+    }
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    //-------------------------------------------------------MetodosBase-----------------------------------------------
+
+    public String toString() {
+        return  "Jogo:" + equipaCasa + " - " + equipaFora;
+        //+ " -> " + substituicoesCasa.toString()
+        //+ " -> " + substitucoesFora.toString();
+    }
+
+    //--------------------------------------------------------Metodos-------------------------------------------------
 
     public static Jogo parse(String input, Map<Integer,Jogador> jogadores){
         String[] campos = input.split(",");
@@ -60,12 +136,5 @@ public class Jogo{
                 LocalDate.of(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])),
                 jc, subsC, jf, subsF);
     }
-
-    public String toString() {
-        return  "Jogo:" + equipaCasa + " - " + equipaFora;
-        //+ " -> " + substituicoesCasa.toString()
-        //+ " -> " + substitucoesFora.toString();
-    }
-
 
 }
