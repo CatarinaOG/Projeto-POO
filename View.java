@@ -68,7 +68,7 @@ public class View implements Observer {
         GetInput jogador = new GetInput( new String[] {"Nome"});
         String[] campos = jogador.getCampos();
 
-        Jogador j = controller.getJogador(Integer.parseInt(campos[0]));
+        Jogador j = controller.getJogador(campos[0]);
         jogador.showJogador(j);
     }
 

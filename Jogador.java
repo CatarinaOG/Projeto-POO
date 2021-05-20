@@ -170,7 +170,7 @@ public abstract class Jogador
         sb.append("|Impulsao: "+getImpulsao()+"\n");
         sb.append("|Cabecear: "+getCabecear()+"\n");
         sb.append("|Remate: "+getRemate()+"\n");
-        sb.append("|Passe: "+getPasse()+"\n");
+        sb.append("|Passe: "+getPasse());
 
         return sb.toString();
     }

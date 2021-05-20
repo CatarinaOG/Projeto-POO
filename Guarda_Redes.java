@@ -32,7 +32,7 @@ public class Guarda_Redes extends Jogador
         StringBuffer sb = new StringBuffer();
 
         sb.append(s);
-        sb.append("|Elasticidade: "+getElasticidade());
+        sb.append("\n|Elasticidade: "+getElasticidade());
         sb.append("\n|---------------------------------------------|\n");
 
         return sb.toString();

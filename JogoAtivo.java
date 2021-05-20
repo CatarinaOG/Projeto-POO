@@ -1,33 +1,40 @@
+import java.awt.image.ImageObserver;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
 
 public class JogoAtivo extends Jogo{
 
-    private List<Integer> titularesCasa;
-    private List<Integer> titularesFora;
+    private Map<Integer,Jogador> substitutosCasa;
+    private Map<Integer,Jogador> substitutosFora;
 
-    public JogoAtivo(String ec, String ef, int gc, int gf, LocalDate d, Map<Integer, Jogador> jc, Map<Integer, Integer> sc, Map<Integer, Jogador> jf, Map<Integer, Integer> sf, List<Integer> tc, List<Integer> tf){
-        super(ec, ef, gc, gf, d, jc, sc, jf, sf);
-        this.titularesCasa = tc;
-        this.titularesFora = tf;
+    //-------------------------------------------------Construtor-------------------------------------------------------
+    public JogoAtivo(String ec, String ef, int gc, int gf, LocalDate d, Map<Integer, Jogador> titularesC, Map<Integer, Jogador> substitutosC, Map<Integer, Integer> substituicoesC, Map<Integer, Jogador> titularesF,Map<Integer, Jogador> substitutosF, Map<Integer, Integer> substituicoesF){
+        super(ec, ef, gc, gf, d, titularesC, substituicoesC, titularesF, substituicoesF);
+        this.substitutosCasa = substitutosC;
+        this.substitutosFora = substitutosF;
     }
 
-    public List<Integer> getTitularesCasa() {
-        return titularesCasa;
+    //-------------------------------------------------Sets e Gets-------------------------------------------------------
+    public Map<Integer, Jogador> getSubstitutosCasa() {
+        return substitutosCasa;
     }
 
-    public void setTitularesCasa(List<Integer> titularesCasa) {
-        this.titularesCasa = titularesCasa;
+    public void setSubstitutosCasa(Map<Integer, Jogador> substitutosCasa) {
+        this.substitutosCasa = substitutosCasa;
     }
 
-    public List<Integer> getTitularesFora() {
-        return titularesFora;
+    public Map<Integer, Jogador> getSubstitutosFora() {
+        return substitutosFora;
     }
 
-    public void setTitularesFora(List<Integer> titularesFora) {
-        this.titularesFora = titularesFora;
+    public void setSubstitutosFora(Map<Integer, Jogador> substitutosFora) {
+        this.substitutosFora = substitutosFora;
     }
+
+    //-------------------------------------------------Metodos-------------------------------------------------------
+
 
     public void run(){
 
@@ -39,7 +46,7 @@ public class JogoAtivo extends Jogo{
 
 
 
+
+
     }
-
-
 }

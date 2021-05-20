@@ -33,7 +33,7 @@ public class Lateral extends Jogador
         StringBuffer sb = new StringBuffer();
 
         sb.append(s);
-        sb.append("|Cruzamento: "+getCruzamento());
+        sb.append("\n|Cruzamento: "+getCruzamento());
         sb.append("\n|---------------------------------------------|\n");
 
         return sb.toString();

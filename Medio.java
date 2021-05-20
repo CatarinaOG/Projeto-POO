@@ -29,7 +29,7 @@ public class Medio extends Jogador
         StringBuffer sb = new StringBuffer();
 
         sb.append(s);
-        sb.append("|Recuperacao de bolas: "+getRecuperaçãoDeBolas());
+        sb.append("\n|Recuperacao de bolas: "+getRecuperaçãoDeBolas());
         sb.append("\n|---------------------------------------------|\n");
 
         return sb.toString();

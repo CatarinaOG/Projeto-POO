@@ -29,8 +29,8 @@ public class Controller extends Observable implements Observer {
         model.adicionarLateral(campos);
     }
 
-    public Jogador getJogador(Integer nr){
-        return model.getJogador(nr);
+    public Jogador getJogador(String nome){
+        return model.getJogador(nome);
     }
 
     public void addEquipa(String equipaNome){
@@ -42,12 +42,12 @@ public class Controller extends Observable implements Observer {
     }
 
     public void addJogadorToTeam(String[] campos){
-        model.addJogadorToTeam(Integer.parseInt(campos[0]),campos[1]);
+        model.addJogadorToTeam(campos[0],campos[1]);
 
     }
 
     public void switchJogador(String[] campos){
-        model.switchJogador(Integer.parseInt(campos[0]),campos[1],campos[2]);
+        model.switchJogador(campos[0],campos[1],campos[2]);
     }
 
     public void criarJogo(String[] campos){
@@ -60,10 +60,7 @@ public class Controller extends Observable implements Observer {
 
 
 
-
-
     ///-------------------------------------------------Observer--------------------------------------------------------
-
     public void update(Observable o, Object arg) {
         setChanged();
         notifyObservers(arg);

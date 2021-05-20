@@ -4,12 +4,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
-public class Model extends Observable {
+public class Model extends Observable implements Observer {
     private String evento;
 
     private Map<String,Equipa> equipas;
-    private Map<Integer,Jogador> jogadores;
+    private Map<String,Jogador> jogadores;
     private List<Jogo> jogos;
 
     public Model(){
@@ -19,26 +20,26 @@ public class Model extends Observable {
     }
 
     public void addJogador(Jogador j){
-        this.jogadores.put(j.getNrCamisola(),j);
+        this.jogadores.put(j.getNome(),j);
     }
 
-    public void addEquipa( String nome){
+    public void addEquipa(String nome){
         Equipa e = new Equipa(nome);
         this.equipas.put(e.getNome(),e);
     }
 
-    public void addJogadorToTeam(int nr, String t){
-        Jogador jogador = this.jogadores.get(nr);
+    public void addJogadorToTeam(String nome, String t){
+        Jogador jogador = this.jogadores.get(nome);
         this.equipas.get(t).addJogador(jogador.clone());
     }
 
-    public void switchJogador(int nr, String t1, String t2){
-        this.equipas.get(t1).removeJogador(jogadores.get(nr));
-        this.equipas.get(t2).addJogador(jogadores.get(nr).clone());
+    public void switchJogador(String nome, String t1, String t2){
+        this.equipas.get(t1).removeJogador(jogadores.get(nome));
+        this.equipas.get(t2).addJogador(jogadores.get(nome).clone());
     }
 
-    public Jogador getJogador(int nr){
-        return jogadores.get(nr).clone();
+    public Jogador getJogador(String nome){
+        return jogadores.get(nome).clone();
     }
 
     public Equipa getEquipa(String nome){return equipas.get(nome).clone(); }
@@ -75,36 +76,36 @@ public class Model extends Observable {
                     break;
                 case "Guarda-Redes":
                     j = Guarda_Redes.parse(linhaPartida[1]);
-                    jogadores.put(j.getNrCamisola(), j);
+                    jogadores.put(j.getNome(), j);
                     if (ultima == null) throw new LinhaIncorretaException(); //we need to insert the player into the team
                     ultima.addJogador(j.clone()); //if no team was parsed previously, file is not well-formed
                     break;
                 case "Defesa":
                     j = Defesa.parse(linhaPartida[1]);
-                    jogadores.put(j.getNrCamisola(), j);
+                    jogadores.put(j.getNome(), j);
                     if (ultima == null) throw new LinhaIncorretaException(); //we need to insert the player into the team
                     ultima.addJogador(j.clone()); //if no team was parsed previously, file is not well-formed
                     break;
                 case "Medio":
                     j = Medio.parse(linhaPartida[1]);
-                    jogadores.put(j.getNrCamisola(), j);
+                    jogadores.put(j.getNome(), j);
                     if (ultima == null) throw new LinhaIncorretaException(); //we need to insert the player into the team
                     ultima.addJogador(j.clone()); //if no team was parsed previously, file is not well-formed
                     break;
                 case "Lateral":
                     j = Lateral.parse(linhaPartida[1]);
-                    jogadores.put(j.getNrCamisola(), j);
+                    jogadores.put(j.getNome(), j);
                     if (ultima == null) throw new LinhaIncorretaException(); //we need to insert the player into the team
                     ultima.addJogador(j.clone()); //if no team was parsed previously, file is not well-formed
                     break;
                 case "Avancado":
                     j = Avancado.parse(linhaPartida[1]);
-                    jogadores.put(j.getNrCamisola(), j);
+                    jogadores.put(j.getNome(), j);
                     if (ultima == null) throw new LinhaIncorretaException(); //we need to insert the player into the team
                     ultima.addJogador(j.clone()); //if no team was parsed previously, file is not well-formed
                     break;
                 case "Jogo":
-                    Jogo jo = Jogo.parse(linhaPartida[1],this.jogadores);
+                    Jogo jo = Jogo.parse(linhaPartida[1],this.equipas);
                     jogos.add(jo);
                     break;
                 default:
@@ -148,24 +149,31 @@ public class Model extends Observable {
     }
 
     public void criarJogo(String casa, int j1 , int j2 , String fora, int j3 , int j4){
+        Equipa equipaCasa = equipas.get(casa);
+        Equipa equipaFora = equipas.get(fora);
+
         LocalDate d = LocalDate.now();
-        Map<Integer,Integer> sc = new HashMap<>();
-        Map<Integer,Integer> sf = new HashMap<>();
-        Map<Integer,Jogador> ec = equipas.get(casa).getJogadores();
-        Map<Integer,Jogador> ef = equipas.get(fora).getJogadores();
 
-        List<Integer> titularesC = new ArrayList<>();
-        titularesC.add(j1);
-        titularesC.add(j2);
+        Map<Integer,Jogador> titularesC = new HashMap<>();
+        Map<Integer,Jogador> titularesF = new HashMap<>();
 
-        List<Integer> titularesF = new ArrayList<>();
-        titularesC.add(j3);
-        titularesF.add(j4);
+        Map<Integer,Integer> substituicoesC = new HashMap<>();
+        Map<Integer,Integer> substituicoesF = new HashMap<>();
 
-        JogoAtivo j = new JogoAtivo(casa,fora,0,0,d,ec,sc,ef,sf,titularesC,titularesF);
+        Map<Integer,Jogador> substitutosC = equipas.get(casa).getJogadores();
+        Map<Integer,Jogador> substitutosF = equipas.get(fora).getJogadores();
+
+        titularesC.put( equipaCasa.getJogador(j1).getNrCamisola() , equipaCasa.getJogador(j1));
+        titularesC.put( equipaCasa.getJogador(j2).getNrCamisola() , equipaCasa.getJogador(j2));
+
+        titularesF.put( equipaCasa.getJogador(j3).getNrCamisola() , equipaCasa.getJogador(j3));
+        titularesF.put( equipaCasa.getJogador(j4).getNrCamisola() , equipaCasa.getJogador(j4));
+
+        substitutosC = substitutosC.values().stream().filter(e -> titularesC.containsKey(e.getNrCamisola())).collect(Collectors.toMap(Jogador::getNrCamisola,Jogador::clone));
+        substitutosF = substitutosF.values().stream().filter(e -> titularesF.containsKey(e.getNrCamisola())).collect(Collectors.toMap(Jogador::getNrCamisola,Jogador::clone));
+
+        JogoAtivo j = new JogoAtivo(casa,fora,0,0,d,titularesC,substitutosC,substituicoesC,titularesF,substitutosF,substituicoesF);
         j.run();
-
-
 
     }
 
@@ -176,4 +184,9 @@ public class Model extends Observable {
             setChanged();
             notifyObservers(evento);
     }
+    public void update(Observable o, Object arg) {
+        setChanged();
+        notifyObservers(arg);
+    }
+
 }
