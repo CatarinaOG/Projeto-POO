@@ -1,96 +1,71 @@
-import java.util.ArrayList;
+import javax.management.modelmbean.ModelMBean;
+import java.util.Observable;
+import java.util.Observer;
 
-public class Controller
-{
-
+public class Controller extends Observable implements Observer {
     private Model model;
 
-    public Controller(){
-        this.model = new Model();
+    public Controller(Model model ){
+        this.model = model;
     }
 
-    public void run(){
-        Menu menu = new Menu( new String[] {"Criar Jogador","Criar Equipa","Ver Jogador","Ver equipa","Adicionar jogador a equipa","Trocar Jogador"});
-
-        menu.setHandler(1, this::criarJogador);
-        menu.setHandler(2, this::criarEquipa);
-        menu.setHandler(3,this::verJogador);
-        menu.setHandler(4, this::verEquipa);
-        menu.setHandler(5, this::adicionarJogadorToTeam);
-
-        menu.run();
+    public void adicionarGuardaRedes(String campos){
+        model.adicionarGuardaRedes(campos);
     }
 
-    public void criarJogador(){
-        Menu menu = new Menu( new String[] {"Guarda-Redes","Defesa","Medio","Avancado","Lateral"});
-        menu.setHandler(1, this::adicionarGuardaRedes);
-        menu.setHandler(2, this::adicionarDefesa);
-        menu.setHandler(3, this::adicionarMedio);
-        menu.setHandler(4, this::adicionarAvancado);
-        menu.setHandler(5, this::adicionarLateral);
-        menu.run();
+    public void adicionarDefesa(String campos){
+        model.adicionarDefesa(campos);
     }
 
-    public void adicionarGuardaRedes(){
-        Info guardaRedes = new Info(new String[] {"Nome","NrCamisola","Velocidade","Resistencia","Destreza","Impulsao","Cabecear","Remate","Passe","Elasticidade"});
-        Jogador gr = guardaRedes.getJogador(1);
-        model.addJogador(gr);
+    public void adicionarMedio(String campos){
+        model.adicionarMedio(campos);
     }
 
-    public void adicionarDefesa(){
-        Info defesa = new Info(new String[] {"Nome","NrCamisola","Velocidade","Resistencia","Destreza","Impulsao","Cabecear","Remate","Passe",});
-        Jogador gr = defesa.getJogador(2);
-        model.addJogador(gr);
+    public void adicionarAvancado(String campos){
+        model.adicionarAvancado(campos);
     }
 
-    public void adicionarMedio(){
-        Info medio = new Info(new String[] {"Nome","NrCamisola","Velocidade","Resistencia","Destreza","Impulsao","Cabecear","Remate","Passe","Recuperacao de Bolas"});
-        Jogador gr = medio.getJogador(3);
-        model.addJogador(gr);
+    public void adicionarLateral(String campos){
+        model.adicionarLateral(campos);
     }
 
-    public void adicionarAvancado(){
-        Info avancado = new Info(new String[] {"Nome","NrCamisola","Velocidade","Resistencia","Destreza","Impulsao","Cabecear","Remate","Passe"});
-        Jogador gr = avancado.getJogador(4);
-        model.addJogador(gr);
+    public Jogador getJogador(Integer nr){
+        return model.getJogador(nr);
     }
 
-    public void adicionarLateral(){
-        Info lateral = new Info(new String[] {"Nome","NrCamisola","Velocidade","Resistencia","Destreza","Impulsao","Cabecear","Remate","Passe","Cruzamento"});
-        Jogador gr = lateral.getJogador(5);
-        model.addJogador(gr);
+    public void addEquipa(String equipaNome){
+        model.addEquipa(equipaNome);
     }
 
-    private void verJogador(){
-        Info jogador = new Info( new String[] {"Nome"});
-        String[] campos = jogador.getCampos();
-
-        Jogador j = model.getJogador(Integer.parseInt(campos[0])).clone();
-        jogador.showJogador(j);
+    public Equipa getEquipa(String nome){
+        return model.getEquipa(nome);
     }
 
-    public void criarEquipa(){
-        Info equipa = new Info(new String[] {"Nome da Equipa"});
-        String[] campos = equipa.getCampos();
-        model.addEquipa(campos[0]);
-    }
-
-    public void verEquipa(){
-        Info equipa = new Info( new String[] {"Nome da Equipa"});
-        String[] campos = equipa.getCampos();
-
-        Equipa e = model.getEquipa(campos[0]).clone();
-        equipa.showEquipa(e);
-
-    }
-
-    public void adicionarJogadorToTeam(){
-        Info jog_equipa = new Info(new String[] {"Jogador","Equipa"});
-        String[] campos = jog_equipa.getCampos();
-
+    public void addJogadorToTeam(String[] campos){
         model.addJogadorToTeam(Integer.parseInt(campos[0]),campos[1]);
 
     }
 
+    public void switchJogador(String[] campos){
+        model.switchJogador(Integer.parseInt(campos[0]),campos[1],campos[2]);
+    }
 
+    public void criarJogo(String[] campos){
+        model.criarJogo(campos[0],Integer.parseInt(campos[1]),Integer.parseInt(campos[2]),campos[3],Integer.parseInt(campos[4]),Integer.parseInt(campos[5]));
+    }
+
+    public void load() throws LinhaIncorretaException {
+        model.parse();
+    }
+
+
+
+
+
+    ///-------------------------------------------------Observer--------------------------------------------------------
+
+    public void update(Observable o, Object arg) {
+        setChanged();
+        notifyObservers(arg);
+    }
 }

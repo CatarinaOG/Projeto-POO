@@ -2,46 +2,46 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
+import java.time.LocalDate;
+import java.util.*;
 
-public class Model
-{
+public class Model extends Observable {
+    private String evento;
+
     private Map<String,Equipa> equipas;
     private Map<Integer,Jogador> jogadores;
     private List<Jogo> jogos;
-    
+
     public Model(){
+        this.evento = "";
         this.equipas = new HashMap<>();
         this.jogadores = new HashMap<>();
     }
-    
+
     public void addJogador(Jogador j){
         this.jogadores.put(j.getNrCamisola(),j);
     }
-    
+
     public void addEquipa( String nome){
         Equipa e = new Equipa(nome);
         this.equipas.put(e.getNome(),e);
     }
-    
+
     public void addJogadorToTeam(int nr, String t){
         Jogador jogador = this.jogadores.get(nr);
-        this.equipas.get(t).addJogador(jogador);
+        this.equipas.get(t).addJogador(jogador.clone());
     }
-    
+
     public void switchJogador(int nr, String t1, String t2){
         this.equipas.get(t1).removeJogador(jogadores.get(nr));
-        this.equipas.get(t2).addJogador(jogadores.get(nr));
+        this.equipas.get(t2).addJogador(jogadores.get(nr).clone());
     }
 
     public Jogador getJogador(int nr){
-        return jogadores.get(nr);
+        return jogadores.get(nr).clone();
     }
 
-    public Equipa getEquipa(String nome){return equipas.get(nome); }
+    public Equipa getEquipa(String nome){return equipas.get(nome).clone(); }
 
     public void guardaEstado(String ficheiro) throws FileNotFoundException, IOException {
         File f = new File(ficheiro);
@@ -57,7 +57,7 @@ public class Model
     }
 
     public void parse() throws LinhaIncorretaException {
-        List<String> linhas = lerFicheiro("output.txt");
+        List<String> linhas = lerFicheiro("logs.txt");
         this.equipas = new HashMap<>(); //nome, equipa
         this.jogadores = new HashMap<>(); //numero, jogador
         this.jogos = new ArrayList<>();
@@ -121,4 +121,59 @@ public class Model
         return lines;
     }
 
+    public void adicionarGuardaRedes(String campos){
+        Jogador j = Guarda_Redes.parse(campos);
+        j.setValorJogador(j.valorJogador());
+        addJogador(j);
+    }
+
+    public void adicionarDefesa(String campos){
+        Jogador j = Defesa.parse(campos);
+        addJogador(j);
+    }
+
+    public void adicionarMedio(String campos){
+        Jogador j = Medio.parse(campos);
+        addJogador(j);
+    }
+
+    public void adicionarAvancado(String campos){
+        Jogador j = Avancado.parse(campos);
+        addJogador(j);
+    }
+
+    public void adicionarLateral(String campos){
+        Jogador j = Lateral.parse(campos);
+        addJogador(j);
+    }
+
+    public void criarJogo(String casa, int j1 , int j2 , String fora, int j3 , int j4){
+        LocalDate d = LocalDate.now();
+        Map<Integer,Integer> sc = new HashMap<>();
+        Map<Integer,Integer> sf = new HashMap<>();
+        Map<Integer,Jogador> ec = equipas.get(casa).getJogadores();
+        Map<Integer,Jogador> ef = equipas.get(fora).getJogadores();
+
+        List<Integer> titularesC = new ArrayList<>();
+        titularesC.add(j1);
+        titularesC.add(j2);
+
+        List<Integer> titularesF = new ArrayList<>();
+        titularesC.add(j3);
+        titularesF.add(j4);
+
+        JogoAtivo j = new JogoAtivo(casa,fora,0,0,d,ec,sc,ef,sf,titularesC,titularesF);
+        j.run();
+
+
+
+    }
+
+
+    //---------------------------------------------Observer-------------------------------------------------------------
+    public void setEvento(){
+            this.evento = "Maria";
+            setChanged();
+            notifyObservers(evento);
+    }
 }

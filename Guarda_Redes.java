@@ -1,13 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Escreva a descrição da classe Guarda_Redes aqui.
- * 
- * @author (Gerson Junior) 
- * @version (número de versão ou data)
- */
-
 public class Guarda_Redes extends Jogador
 {
     private int elasticidade; 

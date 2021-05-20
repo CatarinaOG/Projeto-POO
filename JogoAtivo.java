@@ -6,20 +6,40 @@ public class JogoAtivo extends Jogo{
 
     private List<Integer> titularesCasa;
     private List<Integer> titularesFora;
-    private List<Integer> substitutosCasa;
-    private List<Integer> substitutosFora;
 
-    public JogoAtivo(String ec, String ef, int gc, int gf, LocalDate d, Map<Integer, Jogador> jc, Map<Integer, Integer> sc, Map<Integer, Jogador> jf, Map<Integer, Integer> sf, List<Integer> tc , List<Integer> substitutosC , List<Integer> tf, List<Integer> substitutosF) {
+    public JogoAtivo(String ec, String ef, int gc, int gf, LocalDate d, Map<Integer, Jogador> jc, Map<Integer, Integer> sc, Map<Integer, Jogador> jf, Map<Integer, Integer> sf, List<Integer> tc, List<Integer> tf){
         super(ec, ef, gc, gf, d, jc, sc, jf, sf);
         this.titularesCasa = tc;
         this.titularesFora = tf;
-        this.substitutosCasa = substitutosC;
-        this.substitutosFora = substitutosF;
     }
 
-    public void runJogo(){
-
-        
+    public List<Integer> getTitularesCasa() {
+        return titularesCasa;
     }
+
+    public void setTitularesCasa(List<Integer> titularesCasa) {
+        this.titularesCasa = titularesCasa;
+    }
+
+    public List<Integer> getTitularesFora() {
+        return titularesFora;
+    }
+
+    public void setTitularesFora(List<Integer> titularesFora) {
+        this.titularesFora = titularesFora;
+    }
+
+    public void run(){
+
+
+
+
+
+
+
+
+
+    }
+
 
 }
