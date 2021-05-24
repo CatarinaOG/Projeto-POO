@@ -19,7 +19,8 @@ public class JogoAtivo extends Jogo{
 
     public void runJogo(){
 
-        
+
+
     }
 
 }
