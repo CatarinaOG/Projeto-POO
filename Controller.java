@@ -10,11 +10,11 @@ public class Controller
     }
 
     public void run(){
-        Menu menu = new Menu( new String[] {"Criar Jogador","Criar Equipa","Ver Jogador","Ver equipa","Adicionar jogador a equipa","Trocar Jogador"});
+        Menu menu = new Menu( new String[] {"Criar Jogador",  "Criar Equipa","Ver Jogador","Ver equipa","Adicionar jogador a equipa","Trocar Jogador"});
 
         menu.setHandler(1, this::criarJogador);
         menu.setHandler(2, this::criarEquipa);
-        menu.setHandler(3,this::verJogador);
+        menu.setHandler(3, this::verJogador);
         menu.setHandler(4, this::verEquipa);
         menu.setHandler(5, this::adicionarJogadorToTeam);
 
