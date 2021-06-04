@@ -27,6 +27,12 @@ public class JogoAtivo extends Jogo{
         return j+1;
     }
 
+    public static double probabilidade (double eq1,double eq2){
+        double temp;
+        temp = eq1 + eq2;
+        return eq1/temp;
+    }
+
     //Isto esta feito para o interpertador se for para ser em aplicacao tem que ser de maneira ligeiramente diferente, e falta adicionar o calculo da prob_eq pois ainda preciso
     // do valor das equipas para fazer uma funcao que faca a probabilidade
     //E tambem esta sem substituacoes nao estou conseguir fazer isso
@@ -43,11 +49,15 @@ public class JogoAtivo extends Jogo{
 
         for(int i = 0;i<=90; i++) {
 
+            //prob_eq = probabilidade(valorEqupa(titularesCasa), valorEquipa(titularesFora));
+
             try {
-                Thread.sleep(100);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
+
+            if(prob_eq < 0.5) prob_eq = 1-prob_eq;
 
             temp = (i+4);
             prob = -(prob_eq / temp) + 1;
@@ -69,7 +79,7 @@ public class JogoAtivo extends Jogo{
                 }
             }
             //text = text.concat("Minutos").concat(String.valueOf(i)).concat(" \n");
-            // System.out.printf("Minuto %d\n", i);
+            //System.out.printf("Minuto %d\n", i);
         }
         golos1 = sizeA(golo1);
         golos2 = sizeA(golo2);
@@ -81,8 +91,8 @@ public class JogoAtivo extends Jogo{
 
     }
 
-    //public static void main(String[] args) {
-    //    runJogo();
-    //}
+   // public static void main(String[] args) {
+   //     runJogo();
+   //  }
 
 }
