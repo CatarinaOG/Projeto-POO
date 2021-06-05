@@ -44,8 +44,8 @@ public class Model extends Observable implements Observer {
 
     public Equipa getEquipa(String nome){return equipas.get(nome).clone(); }
 
-    public void parse() throws LinhaIncorretaException {
-        List<String> linhas = lerFicheiro("logs.txt");
+    public void parse(String ficheiro) throws LinhaIncorretaException {
+        List<String> linhas = lerFicheiro(ficheiro);
         this.equipas = new HashMap<>(); //nome, equipa
         this.jogadores = new HashMap<>(); //numero, jogador
         this.jogos = new ArrayList<>();
@@ -145,8 +145,8 @@ public class Model extends Observable implements Observer {
 
         LocalDate d = LocalDate.now();
 
-        Map<Integer,Jogador> substitutosC = equipas.get(casa).getJogadores();
-        Map<Integer,Jogador> substitutosF = equipas.get(fora).getJogadores();
+        Map<Integer,Jogador> substitutosC = equipaCasa.getJogadores();
+        Map<Integer,Jogador> substitutosF = equipaFora.getJogadores();
 
         Map<Integer,Jogador> titularesC = new HashMap<>();
         Map<Integer,Jogador> titularesF = new HashMap<>();
@@ -167,7 +167,7 @@ public class Model extends Observable implements Observer {
 
     }
 
-    public void guardaEstado(String ficheiro) throws IOException {
+    public void writeModel(String ficheiro) throws IOException {
         File f = new File(ficheiro);
         if(!f.exists()){
             f.createNewFile();

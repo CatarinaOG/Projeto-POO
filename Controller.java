@@ -70,12 +70,12 @@ public class Controller extends Observable implements Observer {
         model.criarJogo(campos[0],titularesC,campos[3],titularesC);
     }
 
-    public void load() throws LinhaIncorretaException {
-        model.parse();
+    public void load(String ficheiro) throws LinhaIncorretaException {
+        model.parse(ficheiro);
     }
 
-    public void saveModel() throws IOException {
-        model.guardaEstado("estado");
+    public void saveModel(String file) throws IOException {
+        model.writeModel(file);
     }
 
     public void readModel(String Ficheiro) throws IOException, ClassNotFoundException {

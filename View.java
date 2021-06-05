@@ -12,14 +12,14 @@ public class View implements Observer {
     }
 
     public void runView() {
-        Menu menu = new Menu( new String[] {"Criar Jogador","Remover Jogador de Equipa","Criar Equipa","Ver Jogador","Ver equipa","Adicionar jogador a equipa","Trocar Jogador","Jogar","Carregar ficheiro de Texto","Guardar ficheiro de Objetos","Ler ficheiro de Objetos"});
+        Menu menu = new Menu( new String[] {"Criar Jogador","Criar Equipa","Ver Jogador","Ver equipa","Adicionar jogador a equipa","Remover Jogador de Equipa","Trocar Jogador","Jogar","Carregar ficheiro de Texto","Guardar ficheiro de Objetos","Ler ficheiro de Objetos"});
 
         menu.setHandler(1, this::criarJogador);
-        menu.setHandler(2, this::removerjogador);
-        menu.setHandler(3, this::criarEquipa);
-        menu.setHandler(4, this::verJogador);
-        menu.setHandler(5, this::verEquipa);
-        menu.setHandler(6, this::adicionarJogadorToTeam);
+        menu.setHandler(2, this::criarEquipa);
+        menu.setHandler(3, this::verJogador);
+        menu.setHandler(4, this::verEquipa);
+        menu.setHandler(5, this::adicionarJogadorToTeam);
+        menu.setHandler(6, this::removerjogador);
         menu.setHandler(7, this::trocarJogador);
         menu.setHandler(8, this::jogar);
         menu.setHandler(9, this::readFicheiroTexto);
@@ -121,20 +121,32 @@ public class View implements Observer {
     }
 
     public void readFicheiroTexto() {
+
+        GetInput nome = new GetInput(new String[] {"Nome do ficheiro"});
+        String file = nome.getLine();
+
         try {
-            controller.load();
+            controller.load(file);
         }catch(LinhaIncorretaException l){
             System.out.println("erro");
         }
     }
 
     public void saveModel(){
-        try{ controller.saveModel();}
+
+        GetInput nome = new GetInput(new String[] {"Nome do ficheiro"});
+        String file = nome.getLine();
+
+        try{ controller.saveModel(file);}
         catch (IOException e) { System.out.println("erro a salvar");}
     }
 
     public void readModel(){
-        try{ controller.readModel("estado"); }
+
+        GetInput nome = new GetInput(new String[] {"Nome do ficheiro"});
+        String file = nome.getLine();
+
+        try{ controller.readModel(file); }
         catch (IOException e) { System.out.println("erro na escrita");}
         catch (ClassNotFoundException e) { System.out.println("erro nas classes");}
     }

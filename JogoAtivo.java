@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Random;
 
 public class JogoAtivo extends Jogo{
 
@@ -63,24 +64,35 @@ public class JogoAtivo extends Jogo{
         return eq1 / temp;
     }
 
+    public int random(){
+        Random r = new Random();
+        return r.nextInt(2);
+    }
 
     //Isto esta feito para o interpertador se for para ser em aplicacao tem que ser de maneira ligeiramente diferente, e falta adicionar o calculo da prob_eq pois ainda preciso
     // do valor das equipas para fazer uma funcao que faca a probabilidade
     //E tambem esta sem substituacoes nao estou conseguir fazer isso
 
-    public static void run (){
+    public void run (){
         int acontecimento,golos1,golos2;
         int ac, j = 0,f = 0;
         int [] golo1 = new int[90];
         int [] golo2 = new int[90];
         double prob, prob_eq = 0.75;
         double temp;
-        //String text = "";
+
+        Map<Integer,Jogador> jogTitularesC = super.getTitularesCasa();
+        Map<Integer,Jogador> jogTitularesF = super.getTitularesFora();
+        double probTrocaDeBola;
+        double probMarcar;
+        int equipaComBola = random(); //0 -> casa 1-> fora
 
 
-        for(int i = 0;i<=90; i++) {
+        for(int i = 0;i<=180; i++) {
 
             //prob_eq = probabilidade(valorEqupa(titularesCasa), valorEquipa(titularesFora));
+
+            //------------------------------------tempo-------------------------------------
 
             try {
                 Thread.sleep(1000);
@@ -88,7 +100,53 @@ public class JogoAtivo extends Jogo{
                 Thread.currentThread().interrupt();
             }
 
-            if(prob_eq < 0.5) prob_eq = 1-prob_eq;
+            //-------------------------------Acontecimentos---------------------------------
+
+            if (equipaComBola == 0) {
+                probTrocaDeBola = probPerderBola(jogTitularesC, i / 20);
+                acontecimento = randomP(probTrocaDeBola);
+
+                if (acontecimento == 1) {
+                    equipaComBola = 1;
+                    System.out.println("Posse de Bola: Fora");
+                } else {
+
+                    probMarcar = probMarcarGolo(jogTitularesC, i / 20);
+                    acontecimento = randomP(probMarcar);
+
+                    if (acontecimento == 1) {
+                        System.out.println("Golo de Casa. Posse de Bola: Fora");
+                        equipaComBola = 1;
+                    } else {
+                        System.out.println("Golo falhado de Casa. Posse de Bola: Fora");
+                        equipaComBola = 1;
+                    }
+                }
+            } else {
+                probTrocaDeBola = probPerderBola(jogTitularesF, i / 20);
+                acontecimento = randomP(probTrocaDeBola);
+
+                if (acontecimento == 1) {
+                    equipaComBola = 0;
+                    System.out.println("Posse de Bola: Casa");
+                } else {
+
+                    probMarcar = probMarcarGolo(jogTitularesF, i / 20);
+                    acontecimento = randomP(probMarcar);
+
+                    if (acontecimento == 1) {
+                        System.out.println("Golo de Fora. Posse de Bola: Casa");
+                        equipaComBola = 0;
+                    } else {
+                        System.out.println("Golo falhado de Fora. Posse de Bola: Casa");
+                        equipaComBola = 0;
+                    }
+                }
+            }
+
+
+            //------------------------------------golos-------------------------------------
+            /*if(prob_eq < 0.5) prob_eq = 1-prob_eq;
 
             temp = (i+4);
             prob = -(prob_eq / temp) + 1;
@@ -118,20 +176,28 @@ public class JogoAtivo extends Jogo{
         //text = text.concat("Equipa1 : ").concat(String.valueOf(golos1)).concat(" x ").concat(String.valueOf(golos2)).concat(" : Equipa2\n");
         System.out.printf("Eq1 : %d x %d : Eq2", golos1,golos2);
 
+             */
 
 
+        }
     }
-
-   // public static void main(String[] args) {
-   //     runJogo();
-   //  }
-
-
 
     //-------------------------------------------------Metodos-------------------------------------------------------
 
     public double valorEquipaTitular(Map<Integer,Jogador> equipa ){
         return equipa.values().stream().mapToDouble(Jogador::getValorJogador).sum();
+    }
+
+    public double valorCruzamentoTitular(Map<Integer,Jogador> equipa){
+        return equipa.values().stream().mapToDouble(Jogador::getPasse).sum();
+    }
+
+    public double probPerderBola(Map<Integer,Jogador> jogTitulares, int tempo){
+        return -((0.67)/(tempo+0.88))+1;
+    }
+
+    public double probMarcarGolo (Map<Integer,Jogador> jogTitulares, int tempo){
+        return -((0.6)/(tempo+0.4))+1;
     }
 
 }

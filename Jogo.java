@@ -61,19 +61,19 @@ public class Jogo extends Observable implements Serializable{
         this.golosFora = golosFora;
     }
 
-    public Map<Integer, Jogador> getJogadoresCasa() {
+    public Map<Integer, Jogador> getTitularesCasa() {
         return titularesCasa;
     }
 
-    public void setJogadoresCasa(Map<Integer, Jogador> jogadoresCasa) {
+    public void setTitularesCasa(Map<Integer, Jogador> jogadoresCasa) {
         this.titularesCasa = jogadoresCasa;
     }
 
-    public Map<Integer, Jogador> getJogadoresFora() {
+    public Map<Integer, Jogador> getTitularesFora() {
         return titularesFora;
     }
 
-    public void setJogadoresFora(Map<Integer, Jogador> jogadoresFora) {
+    public void setTitularesFora(Map<Integer, Jogador> jogadoresFora) {
         this.titularesFora = jogadoresFora;
     }
 
