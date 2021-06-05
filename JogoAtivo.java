@@ -60,7 +60,11 @@ public class JogoAtivo extends Jogo{
     public static double probabilidade (double eq1,double eq2) {
         double temp;
         temp = eq1 + eq2;
-        return eq1 / temp;
+        return eq1/temp;
+    }
+
+        public void setSubstitutosCasa(Map<Integer, Jogador> substitutosCasa) {
+        this.substitutosCasa = substitutosCasa;
     }
 
 
