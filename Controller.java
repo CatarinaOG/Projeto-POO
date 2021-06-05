@@ -1,4 +1,6 @@
 import javax.management.modelmbean.ModelMBean;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -30,6 +32,8 @@ public class Controller extends Observable implements Observer {
     public void adicionarLateral(String campos){
         model.adicionarLateral(campos);
     }
+
+    public void removeJogadorDeEquipa(Integer nr, String equipa){model.removeJogadorDeEquipa(nr,equipa);}
 
     public Jogador getJogador(String nome){
         return model.getJogador(nome);
@@ -68,6 +72,14 @@ public class Controller extends Observable implements Observer {
 
     public void load() throws LinhaIncorretaException {
         model.parse();
+    }
+
+    public void saveModel() throws IOException {
+        model.guardaEstado("estado");
+    }
+
+    public void readModel(String Ficheiro) throws IOException, ClassNotFoundException {
+        model.readModel(Ficheiro);
     }
 
 

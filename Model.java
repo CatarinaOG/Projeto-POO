@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class Model extends Observable implements Observer {
     private String evento;
 
-    private Map<String,Equipa> equipas;
+    private HashMap<String,Equipa> equipas;
     private Map<String,Jogador> jogadores;
     private List<Jogo> jogos;
 
@@ -34,7 +34,7 @@ public class Model extends Observable implements Observer {
     }
 
     public void switchJogador(String nome, String t1, String t2){
-        this.equipas.get(t1).removeJogador(jogadores.get(nome));
+        this.equipas.get(t1).removeJogador(jogadores.get(nome).getNrCamisola());
         this.equipas.get(t2).addJogador(jogadores.get(nome).clone());
     }
 
@@ -43,19 +43,6 @@ public class Model extends Observable implements Observer {
     }
 
     public Equipa getEquipa(String nome){return equipas.get(nome).clone(); }
-
-    public void guardaEstado(String ficheiro) throws FileNotFoundException, IOException {
-        File f = new File(ficheiro);
-        if(!f.exists()){
-            f.createNewFile();
-        }
-        FileOutputStream fos = new FileOutputStream(f);
-
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(this);
-        oos.flush();
-        oos.close();
-    }
 
     public void parse() throws LinhaIncorretaException {
         List<String> linhas = lerFicheiro("logs.txt");
@@ -148,6 +135,10 @@ public class Model extends Observable implements Observer {
         addJogador(j);
     }
 
+    public void removeJogadorDeEquipa(Integer nr, String equipa){
+        equipas.get(equipa).removeJogador(nr);
+    }
+
     public void criarJogo(String casa, List<Integer> jogCasa, String fora, List<Integer> jogFora ){
         Equipa equipaCasa = equipas.get(casa);
         Equipa equipaFora = equipas.get(fora);
@@ -173,6 +164,33 @@ public class Model extends Observable implements Observer {
 
         JogoAtivo j = new JogoAtivo(casa,fora,0,0,d,titularesC,substitutosC,substituicoesC,titularesF,substitutosF,substituicoesF);
         j.run();
+
+    }
+
+    public void guardaEstado(String ficheiro) throws IOException {
+        File f = new File(ficheiro);
+        if(!f.exists()){
+            f.createNewFile();
+        }
+        FileOutputStream fos = new FileOutputStream(f);
+
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(this.jogadores);
+        oos.writeObject(this.equipas);
+        oos.writeObject(this.jogos);
+        oos.flush();
+        oos.close();
+    }
+
+    public void readModel(String Ficheiro) throws IOException,ClassNotFoundException {
+
+        FileInputStream fileIn = new FileInputStream(Ficheiro);
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+
+        this.equipas = (HashMap) in.readObject();
+        this.jogadores = (HashMap) in.readObject();
+        this.jogos = (List) in.readObject();
+
 
     }
 

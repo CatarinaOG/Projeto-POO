@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Equipa
+public class Equipa implements Serializable
 {
     private String nome;
     private int nrJogadores;
@@ -121,8 +122,8 @@ public class Equipa
         }
     }
     
-    public void removeJogador(Jogador jogador){
-        this.jogadores.remove(jogador);
+    public void removeJogador(Integer nr){
+        this.jogadores.remove(nr);
         this.nrJogadores--;
     }
 

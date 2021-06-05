@@ -1,10 +1,11 @@
+import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 
 //Gerson Henrique de Araujo Junior
 //29-03-2021
 
-public abstract class Jogador
+public abstract class Jogador implements Serializable
 {
     private String nome;
     private int nrCamisola;
