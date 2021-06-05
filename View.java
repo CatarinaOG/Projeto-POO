@@ -12,7 +12,7 @@ public class View implements Observer {
     }
 
     public void runView() {
-        Menu menu = new Menu( new String[] {"Criar Jogador","Remover Jogador","Criar Equipa","Ver Jogador","Ver equipa","Adicionar jogador a equipa","Trocar Jogador","Jogar","Load","Guardar Estado","Ler Estado"});
+        Menu menu = new Menu( new String[] {"Criar Jogador","Remover Jogador de Equipa","Criar Equipa","Ver Jogador","Ver equipa","Adicionar jogador a equipa","Trocar Jogador","Jogar","Carregar ficheiro de Texto","Guardar ficheiro de Objetos","Ler ficheiro de Objetos"});
 
         menu.setHandler(1, this::criarJogador);
         menu.setHandler(2, this::removerjogador);
@@ -22,7 +22,7 @@ public class View implements Observer {
         menu.setHandler(6, this::adicionarJogadorToTeam);
         menu.setHandler(7, this::trocarJogador);
         menu.setHandler(8, this::jogar);
-        menu.setHandler(9, this::load);
+        menu.setHandler(9, this::readFicheiroTexto);
         menu.setHandler(10,this::saveModel);
         menu.setHandler(11,this::readModel);
 
@@ -120,7 +120,7 @@ public class View implements Observer {
         controller.criarJogo(campos);
     }
 
-    public void load() {
+    public void readFicheiroTexto() {
         try {
             controller.load();
         }catch(LinhaIncorretaException l){
