@@ -1,13 +1,15 @@
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Equipa
+public class Equipa implements Serializable
 {
     private String nome;
     private int nrJogadores;
     private Map <Integer,Jogador> jogadores;
     private List<Jogador> jogadoresTitulares;
     private List<Jogador> jogadoresSuplentes;
+    private double valorEquipa;
     
     //-----------------------------------------------------construtores------------------------------------------------------
     
@@ -17,6 +19,7 @@ public class Equipa
         this.jogadores = new HashMap<>();
         this.jogadoresTitulares = new ArrayList<>(11);
         this.jogadoresSuplentes = new ArrayList<>(11);
+        this.valorEquipa = 0;
     }
     
     public Equipa(String nome, int nrJogadores, Map<Integer,Jogador> jogadores){
@@ -25,6 +28,7 @@ public class Equipa
         this.jogadores = jogadores.values().stream().collect(Collectors.toMap( Jogador::getNrCamisola , Jogador::clone));
         this.jogadoresTitulares = new ArrayList<>(11);
         this.jogadoresSuplentes = new ArrayList<>(11);
+        this.valorEquipa = findValorEquipa();
     }
     
     public Equipa(Equipa equipa){
@@ -79,6 +83,14 @@ public class Equipa
         this.jogadoresSuplentes = jogadoresSuplentes;
     }
 
+    public double getValorEquipa() {
+        return valorEquipa;
+    }
+
+    public void setValorEquipa(double valorEquipa) {
+        this.valorEquipa = valorEquipa;
+    }
+
     //---------------------------------------------------métodos base---------------------------------------------------
 
     public Equipa clone(){
@@ -91,21 +103,27 @@ public class Equipa
         for(Jogador j : this.jogadores.values())
             sb.append(j.toString());
 
+        sb.append("|ValorEquipa: "+this.valorEquipa+"\n");
         return sb.toString();
     }
     
     //-----------------------------------------------------métodos------------------------------------------------------
-    
+
+    public double findValorEquipa(){
+        return this.jogadores.values().stream().mapToDouble(Jogador::getValorJogador).sum();
+    }
+
     public void addJogador(Jogador jogador){
         if (this.nrJogadores < 18){
             this.jogadores.put(jogador.getNrCamisola(),jogador);
             this.nrJogadores++;
             jogador.addHistorial(this.getNome());
+            setValorEquipa(this.findValorEquipa());
         }
     }
     
-    public void removeJogador(Jogador jogador){
-        this.jogadores.remove(jogador);
+    public void removeJogador(Integer nr){
+        this.jogadores.remove(nr);
         this.nrJogadores--;
     }
 
@@ -117,5 +135,6 @@ public class Equipa
         String[] campos = input.split(",");
         return new Equipa(campos[0]);
     }
+
 
 }

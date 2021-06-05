@@ -34,6 +34,8 @@ public class Lateral extends Jogador
 
         sb.append(s);
         sb.append("\n|Cruzamento: "+getCruzamento());
+        sb.append("\n|Valor Jogador: "+super.getValorJogador()+"\n");
+        sb.append("|Historico: "+super.getHistorial());
         sb.append("\n|---------------------------------------------|\n");
 
         return sb.toString();

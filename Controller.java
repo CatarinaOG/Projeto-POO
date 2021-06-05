@@ -1,4 +1,8 @@
 import javax.management.modelmbean.ModelMBean;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -29,6 +33,8 @@ public class Controller extends Observable implements Observer {
         model.adicionarLateral(campos);
     }
 
+    public void removeJogadorDeEquipa(Integer nr, String equipa){model.removeJogadorDeEquipa(nr,equipa);}
+
     public Jogador getJogador(String nome){
         return model.getJogador(nome);
     }
@@ -43,7 +49,6 @@ public class Controller extends Observable implements Observer {
 
     public void addJogadorToTeam(String[] campos){
         model.addJogadorToTeam(campos[0],campos[1]);
-
     }
 
     public void switchJogador(String[] campos){
@@ -51,13 +56,31 @@ public class Controller extends Observable implements Observer {
     }
 
     public void criarJogo(String[] campos){
-        model.criarJogo(campos[0],Integer.parseInt(campos[1]),Integer.parseInt(campos[2]),campos[3],Integer.parseInt(campos[4]),Integer.parseInt(campos[5]));
+
+        List<Integer> titularesC = new ArrayList<>();
+
+        for(int i=1 ; i<3 ; i++) // 12
+            titularesC.add(Integer.parseInt(campos[i]));
+
+        List<Integer> titularesF = new ArrayList<>();
+
+        for(int i=4 ; i<6 ; i++) //13 e 24
+            titularesF.add(Integer.parseInt(campos[i]));
+
+        model.criarJogo(campos[0],titularesC,campos[3],titularesC);
     }
 
     public void load() throws LinhaIncorretaException {
         model.parse();
     }
 
+    public void saveModel() throws IOException {
+        model.guardaEstado("estado");
+    }
+
+    public void readModel(String Ficheiro) throws IOException, ClassNotFoundException {
+        model.readModel(Ficheiro);
+    }
 
 
     ///-------------------------------------------------Observer--------------------------------------------------------

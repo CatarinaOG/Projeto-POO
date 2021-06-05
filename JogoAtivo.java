@@ -6,6 +6,17 @@ import java.util.Observable;
 
 public class JogoAtivo extends Jogo{
 
+    /*
+    private String equipaCasa;
+    private String equipaFora;
+    private int golosCasa;
+    private int golosFora;
+    private Map<Integer,Jogador> titularesCasa;
+    private Map<Integer,Jogador> titularesFora;
+    private Map<Integer,Integer> substituicoesCasa;
+    private Map<Integer,Integer> substitucoesFora;
+    private final LocalDate data;
+     */
     private Map<Integer,Jogador> substitutosCasa;
     private Map<Integer,Jogador> substitutosFora;
 
@@ -16,33 +27,48 @@ public class JogoAtivo extends Jogo{
         this.substitutosFora = substitutosF;
     }
 
+    //-------------------------------------------------Sets e Gets-------------------------------------------------------
+    public Map<Integer, Jogador> getSubstitutosCasa() {
+        return substitutosCasa;
+    }
+
+    public void setSubstitutosCasa(Map<Integer, Jogador> substitutosCasa) {
+        this.substitutosCasa = substitutosCasa;
+    }
+
+    public Map<Integer, Jogador> getSubstitutosFora() {
+        return substitutosFora;
+    }
+
+    public void setSubstitutosFora(Map<Integer, Jogador> substitutosFora) {
+        this.substitutosFora = substitutosFora;
+    }
+
+
+    //-------------------------------------------------Auxiliares-------------------------------------------------------
     public static int randomP(double p) {
         return (Math.random() < p) ? 1 : 0;
     }
+
     public static int sizeA (int [] n){
         if(n[0] != 1) return 0;
         int j = 0;
         for (int i = 0; n[i] == 1; i++) j = i;
         return j+1;
     }
-    //-------------------------------------------------Sets e Gets-------------------------------------------------------
-    public Map<Integer, Jogador> getSubstitutosCasa() {
-        return substitutosCasa;
-    }
 
-    public static double probabilidade (double eq1,double eq2){
+    public static double probabilidade (double eq1,double eq2) {
         double temp;
         temp = eq1 + eq2;
-        return eq1/temp;
-    public void setSubstitutosCasa(Map<Integer, Jogador> substitutosCasa) {
-        this.substitutosCasa = substitutosCasa;
+        return eq1 / temp;
     }
+
 
     //Isto esta feito para o interpertador se for para ser em aplicacao tem que ser de maneira ligeiramente diferente, e falta adicionar o calculo da prob_eq pois ainda preciso
     // do valor das equipas para fazer uma funcao que faca a probabilidade
     //E tambem esta sem substituacoes nao estou conseguir fazer isso
 
-    private static void runJogo (){
+    public static void run (){
         int acontecimento,golos1,golos2;
         int ac, j = 0,f = 0;
         int [] golo1 = new int[90];
@@ -100,28 +126,12 @@ public class JogoAtivo extends Jogo{
    //     runJogo();
    //  }
 
-    public Map<Integer, Jogador> getSubstitutosFora() {
-        return substitutosFora;
-    }
 
-    public void setSubstitutosFora(Map<Integer, Jogador> substitutosFora) {
-        this.substitutosFora = substitutosFora;
-    }
 
     //-------------------------------------------------Metodos-------------------------------------------------------
 
-
-    public void run(){
-
-
-
-
-
-
-
-
-
-
-
+    public double valorEquipaTitular(Map<Integer,Jogador> equipa ){
+        return equipa.values().stream().mapToDouble(Jogador::getValorJogador).sum();
     }
+
 }

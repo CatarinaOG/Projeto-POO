@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -10,16 +12,19 @@ public class View implements Observer {
     }
 
     public void runView() {
-        Menu menu = new Menu( new String[] {"Criar Jogador","Criar Equipa","Ver Jogador","Ver equipa","Adicionar jogador a equipa","Trocar Jogador","Jogar","Load"});
+        Menu menu = new Menu( new String[] {"Criar Jogador","Remover Jogador de Equipa","Criar Equipa","Ver Jogador","Ver equipa","Adicionar jogador a equipa","Trocar Jogador","Jogar","Carregar ficheiro de Texto","Guardar ficheiro de Objetos","Ler ficheiro de Objetos"});
 
         menu.setHandler(1, this::criarJogador);
-        menu.setHandler(2, this::criarEquipa);
-        menu.setHandler(3, this::verJogador);
-        menu.setHandler(4, this::verEquipa);
-        menu.setHandler(5, this::adicionarJogadorToTeam);
-        menu.setHandler(6, this::trocarJogador);
-        menu.setHandler(7, this::jogar);
-        menu.setHandler(8, this::load);
+        menu.setHandler(2, this::removerjogador);
+        menu.setHandler(3, this::criarEquipa);
+        menu.setHandler(4, this::verJogador);
+        menu.setHandler(5, this::verEquipa);
+        menu.setHandler(6, this::adicionarJogadorToTeam);
+        menu.setHandler(7, this::trocarJogador);
+        menu.setHandler(8, this::jogar);
+        menu.setHandler(9, this::readFicheiroTexto);
+        menu.setHandler(10,this::saveModel);
+        menu.setHandler(11,this::readModel);
 
         menu.run();
     }
@@ -62,6 +67,13 @@ public class View implements Observer {
         GetInput lateral = new GetInput(new String[] {"Nome","NrCamisola","Velocidade","Resistencia","Destreza","Impulsao","Cabecear","Remate","Passe","Cruzamento"});
         String campos = lateral.getLine();
         controller.adicionarLateral(campos);
+    }
+
+    public void removerjogador(){
+        GetInput jog = new GetInput(new String[] {"Número","Nome da Equipa"});
+        String[] campos = jog.getCampos();
+        controller.removeJogadorDeEquipa(Integer.parseInt(campos[0]),campos[1]);
+
     }
 
     private void verJogador(){
@@ -108,13 +120,23 @@ public class View implements Observer {
         controller.criarJogo(campos);
     }
 
-    public void load() {
+    public void readFicheiroTexto() {
         try {
             controller.load();
         }catch(LinhaIncorretaException l){
             System.out.println("erro");
         }
+    }
 
+    public void saveModel(){
+        try{ controller.saveModel();}
+        catch (IOException e) { System.out.println("erro a salvar");}
+    }
+
+    public void readModel(){
+        try{ controller.readModel("estado"); }
+        catch (IOException e) { System.out.println("erro na escrita");}
+        catch (ClassNotFoundException e) { System.out.println("erro nas classes");}
     }
 
     //-----------------------------------------------Observer-----------------------------------------------------------

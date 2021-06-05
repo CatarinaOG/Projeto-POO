@@ -28,6 +28,8 @@ public class Avancado extends Jogador
         StringBuffer sb = new StringBuffer();
 
         sb.append(s);
+        sb.append("\n|Valor Jogador: "+super.getValorJogador()+"\n");
+        sb.append("|Historico: "+super.getHistorial());
         sb.append("\n|---------------------------------------------|\n");
 
         return sb.toString();
@@ -52,7 +54,8 @@ public class Avancado extends Jogador
                 Integer.parseInt(campos[8]),
                 0,
                 new ArrayList<>());
-        a.setValorJogador(a.getValorJogador());
+
+        a.setValorJogador(a.valorJogador());
         return a;
     }
 

@@ -30,6 +30,8 @@ public class Medio extends Jogador
 
         sb.append(s);
         sb.append("\n|Recuperacao de bolas: "+getRecuperaçãoDeBolas());
+        sb.append("\n|Valor Jogador: "+super.getValorJogador()+"\n");
+        sb.append("|Historico: "+super.getHistorial());
         sb.append("\n|---------------------------------------------|\n");
 
         return sb.toString();
