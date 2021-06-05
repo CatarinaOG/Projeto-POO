@@ -12,7 +12,6 @@ public class GetInput {
         this.param = Arrays.asList(params);
     }
 
-
     public String[] getCampos(){
         this.show();
         return scan.nextLine().split(",");

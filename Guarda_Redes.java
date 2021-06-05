@@ -33,6 +33,8 @@ public class Guarda_Redes extends Jogador
 
         sb.append(s);
         sb.append("\n|Elasticidade: "+getElasticidade());
+        sb.append("\n|Valor Jogador: "+super.getValorJogador()+"\n");
+        sb.append("|Historico: "+super.getHistorial());
         sb.append("\n|---------------------------------------------|\n");
 
         return sb.toString();
@@ -49,7 +51,7 @@ public class Guarda_Redes extends Jogador
     public static Jogador parse(String input){
         String[] campos = input.split(",");
 
-        return new Guarda_Redes(campos[0], Integer.parseInt(campos[1]),
+        Guarda_Redes gr = new Guarda_Redes(campos[0], Integer.parseInt(campos[1]),
                 Integer.parseInt(campos[2]),
                 Integer.parseInt(campos[3]),
                 Integer.parseInt(campos[4]),
@@ -60,6 +62,9 @@ public class Guarda_Redes extends Jogador
                 Integer.parseInt(campos[9]),
                 0,
                 new ArrayList<>());
+
+        gr.setValorJogador(gr.valorJogador());
+        return gr;
     }
 
 

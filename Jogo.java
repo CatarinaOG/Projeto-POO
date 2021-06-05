@@ -9,8 +9,8 @@ public class Jogo extends Observable {
     private int golosFora;
     private Map<Integer,Jogador> titularesCasa;
     private Map<Integer,Jogador> titularesFora;
-    private Map<Integer,Integer> substituicoesCasa = new HashMap<>();
-    private Map<Integer,Integer> substitucoesFora = new HashMap<>();
+    private Map<Integer,Integer> substituicoesCasa;
+    private Map<Integer,Integer> substitucoesFora;
     private final LocalDate data;
 
     //----------------------------------------------------------Construtores------------------------------------------------------------

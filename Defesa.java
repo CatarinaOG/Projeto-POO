@@ -27,6 +27,8 @@ public class Defesa extends Jogador
         StringBuffer sb = new StringBuffer();
 
         sb.append(s);
+        sb.append("\n|Valor Jogador: "+super.getValorJogador()+"\n");
+        sb.append("|Historico: "+super.getHistorial());
         sb.append("\n|---------------------------------------------|\n");
 
         return sb.toString();

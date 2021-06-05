@@ -6,6 +6,17 @@ import java.util.Observable;
 
 public class JogoAtivo extends Jogo{
 
+    /*
+    private String equipaCasa;
+    private String equipaFora;
+    private int golosCasa;
+    private int golosFora;
+    private Map<Integer,Jogador> titularesCasa;
+    private Map<Integer,Jogador> titularesFora;
+    private Map<Integer,Integer> substituicoesCasa;
+    private Map<Integer,Integer> substitucoesFora;
+    private final LocalDate data;
+     */
     private Map<Integer,Jogador> substitutosCasa;
     private Map<Integer,Jogador> substitutosFora;
 
@@ -49,4 +60,9 @@ public class JogoAtivo extends Jogo{
 
 
     }
+
+    public double valorEquipaTitular(Map<Integer,Jogador> equipa ){
+        return equipa.values().stream().mapToDouble(Jogador::getValorJogador).sum();
+    }
+
 }

@@ -148,35 +148,33 @@ public class Model extends Observable implements Observer {
         addJogador(j);
     }
 
-    public void criarJogo(String casa, int j1 , int j2 , String fora, int j3 , int j4){
+    public void criarJogo(String casa, List<Integer> jogCasa, String fora, List<Integer> jogFora ){
         Equipa equipaCasa = equipas.get(casa);
         Equipa equipaFora = equipas.get(fora);
 
         LocalDate d = LocalDate.now();
 
+        Map<Integer,Jogador> substitutosC = equipas.get(casa).getJogadores();
+        Map<Integer,Jogador> substitutosF = equipas.get(fora).getJogadores();
+
         Map<Integer,Jogador> titularesC = new HashMap<>();
         Map<Integer,Jogador> titularesF = new HashMap<>();
+
+        for(Integer nr : jogCasa){
+            if(substitutosC.containsKey(nr)) {
+                titularesC.put(nr, substitutosC.get(nr));
+                substitutosC.remove(nr);
+            }
+        }
 
         Map<Integer,Integer> substituicoesC = new HashMap<>();
         Map<Integer,Integer> substituicoesF = new HashMap<>();
 
-        Map<Integer,Jogador> substitutosC = equipas.get(casa).getJogadores();
-        Map<Integer,Jogador> substitutosF = equipas.get(fora).getJogadores();
-
-        titularesC.put( equipaCasa.getJogador(j1).getNrCamisola() , equipaCasa.getJogador(j1));
-        titularesC.put( equipaCasa.getJogador(j2).getNrCamisola() , equipaCasa.getJogador(j2));
-
-        titularesF.put( equipaCasa.getJogador(j3).getNrCamisola() , equipaCasa.getJogador(j3));
-        titularesF.put( equipaCasa.getJogador(j4).getNrCamisola() , equipaCasa.getJogador(j4));
-
-        substitutosC = substitutosC.values().stream().filter(e -> titularesC.containsKey(e.getNrCamisola())).collect(Collectors.toMap(Jogador::getNrCamisola,Jogador::clone));
-        substitutosF = substitutosF.values().stream().filter(e -> titularesF.containsKey(e.getNrCamisola())).collect(Collectors.toMap(Jogador::getNrCamisola,Jogador::clone));
 
         JogoAtivo j = new JogoAtivo(casa,fora,0,0,d,titularesC,substitutosC,substituicoesC,titularesF,substitutosF,substituicoesF);
         j.run();
 
     }
-
 
     //---------------------------------------------Observer-------------------------------------------------------------
     public void setEvento(){
