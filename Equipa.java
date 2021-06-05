@@ -109,6 +109,10 @@ public class Equipa
         this.nrJogadores--;
     }
 
+    public Jogador getJogador(Integer nr){
+        return this.jogadores.get(nr);
+    }
+
     public static Equipa parse(String input){
         String[] campos = input.split(",");
         return new Equipa(campos[0]);

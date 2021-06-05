@@ -1,13 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Escreva a descrição da classe Guarda_Redes aqui.
- * 
- * @author (Gerson Junior) 
- * @version (número de versão ou data)
- */
-
 public class Guarda_Redes extends Jogador
 {
     private int elasticidade; 
@@ -39,7 +32,7 @@ public class Guarda_Redes extends Jogador
         StringBuffer sb = new StringBuffer();
 
         sb.append(s);
-        sb.append("|Elasticidade: "+getElasticidade());
+        sb.append("\n|Elasticidade: "+getElasticidade());
         sb.append("\n|---------------------------------------------|\n");
 
         return sb.toString();

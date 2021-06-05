@@ -13,11 +13,11 @@ public class Menu {
         public boolean validate();
     }
 
-    private static Scanner scan = new Scanner(System.in);
+    private static final Scanner scan = new Scanner(System.in);
 
-    private List<String> opcoes;
-    private List<PreCondition> disponivel;
-    private List<Handler> handlers;
+    private final List<String> opcoes;
+    private final List<PreCondition> disponivel;
+    private final List<Handler> handlers;
 
     public Menu(String[] opcoes){
 
@@ -56,8 +56,7 @@ public class Menu {
     }
 
     private int readOption(){
-        int op = this.scan.nextInt();
-        return op;
+        return  scan.nextInt();
     }
 
     public void setHandler(int i, Handler h){

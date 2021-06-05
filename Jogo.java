@@ -1,31 +1,28 @@
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.*;
 
-public class Jogo{
+public class Jogo extends Observable {
 
     private String equipaCasa;
     private String equipaFora;
     private int golosCasa;
     private int golosFora;
-    private Map<Integer,Jogador> jogadoresCasa;
-    private Map<Integer,Jogador> jogadoresFora;
+    private Map<Integer,Jogador> titularesCasa;
+    private Map<Integer,Jogador> titularesFora;
     private Map<Integer,Integer> substituicoesCasa = new HashMap<>();
     private Map<Integer,Integer> substitucoesFora = new HashMap<>();
     private final LocalDate data;
 
     //----------------------------------------------------------Construtores------------------------------------------------------------
 
-    public Jogo (String ec, String ef, int gc, int gf, LocalDate d,  Map<Integer,Jogador> jc, Map<Integer, Integer> sc,  Map<Integer,Jogador> jf, Map<Integer, Integer> sf){
+    public Jogo (String ec, String ef, int gc, int gf, LocalDate d,  Map<Integer,Jogador> tc, Map<Integer, Integer> sc,  Map<Integer,Jogador> tf, Map<Integer, Integer> sf){
         equipaCasa = ec;
         equipaFora = ef;
         golosCasa = gc;
         golosFora = gf;
         data = d;
-        jogadoresCasa = new HashMap<>(jc);
-        jogadoresFora = new HashMap<>(jf);
+        titularesCasa = new HashMap<>(tc);
+        titularesFora = new HashMap<>(tf);
         substituicoesCasa = new HashMap<>(sc);
         substitucoesFora = new HashMap<>(sf);
     }
@@ -64,19 +61,19 @@ public class Jogo{
     }
 
     public Map<Integer, Jogador> getJogadoresCasa() {
-        return jogadoresCasa;
+        return titularesCasa;
     }
 
     public void setJogadoresCasa(Map<Integer, Jogador> jogadoresCasa) {
-        this.jogadoresCasa = jogadoresCasa;
+        this.titularesCasa = jogadoresCasa;
     }
 
     public Map<Integer, Jogador> getJogadoresFora() {
-        return jogadoresFora;
+        return titularesFora;
     }
 
     public void setJogadoresFora(Map<Integer, Jogador> jogadoresFora) {
-        this.jogadoresFora = jogadoresFora;
+        this.titularesFora = jogadoresFora;
     }
 
     public Map<Integer, Integer> getSubstituicoesCasa() {
@@ -109,16 +106,20 @@ public class Jogo{
 
     //--------------------------------------------------------Metodos-------------------------------------------------
 
-    public static Jogo parse(String input, Map<Integer,Jogador> jogadores){
+    public static Jogo parse(String input, Map<String,Equipa> equipas){
         String[] campos = input.split(",");
         String[] data = campos[4].split("-");
         Map<Integer,Jogador> jc = new HashMap<>();
         Map<Integer,Jogador> jf = new HashMap<>();
         Map<Integer, Integer> subsC = new HashMap<>();
         Map<Integer, Integer> subsF = new HashMap<>();
+
+        Equipa casa = equipas.get(campos[0]);
+        Equipa fora = equipas.get(campos[1]);
+
         for (int i = 5; i < 16; i++){
             int nr = Integer.parseInt(campos[i]);
-            jc.put(nr,jogadores.get(nr));
+            jc.put(nr,casa.getJogador(nr));
         }
         for (int i = 16; i < 19; i++){
             String[] sub = campos[i].split("->");
@@ -126,7 +127,7 @@ public class Jogo{
         }
         for (int i = 19; i < 30; i++){
             int nr = Integer.parseInt(campos[i]);
-            jf.put(nr,jogadores.get(nr));
+            jf.put(nr,fora.getJogador(nr));
         }
         for (int i = 30; i < 33; i++){
             String[] sub = campos[i].split("->");

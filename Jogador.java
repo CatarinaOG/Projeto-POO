@@ -110,7 +110,7 @@ public abstract class Jogador
 
 
     //--------------------------------------------------------sets---------------------------------------------------------------
-    public void setValorJogador(String nome){
+    public void setNomeJogador(String nome){
         this.nome = nome;
     }
     
@@ -158,7 +158,7 @@ public abstract class Jogador
         this.historial.add(equipa);
     }
 
-    //--------------------------------------------------------metodos---------------------------------------------------------------
+    //--------------------------------------------------------metodos base---------------------------------------------------------------
     public String toString(){
         StringBuffer sb = new StringBuffer();
         sb.append("|---------------------------------------------|\n");
@@ -170,11 +170,11 @@ public abstract class Jogador
         sb.append("|Impulsao: "+getImpulsao()+"\n");
         sb.append("|Cabecear: "+getCabecear()+"\n");
         sb.append("|Remate: "+getRemate()+"\n");
-        sb.append("|Passe: "+getPasse()+"\n");
+        sb.append("|Passe: "+getPasse());
 
         return sb.toString();
     }
 
     public abstract Jogador clone();
-
+    public abstract double valorJogador();
 }
