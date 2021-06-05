@@ -187,8 +187,9 @@ public class Model extends Observable implements Observer {
         FileInputStream fileIn = new FileInputStream(Ficheiro);
         ObjectInputStream in = new ObjectInputStream(fileIn);
 
-        this.equipas = (HashMap) in.readObject();
+
         this.jogadores = (HashMap) in.readObject();
+        this.equipas = (HashMap) in.readObject();
         this.jogos = (List) in.readObject();
 
 
