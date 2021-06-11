@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class Jogo extends Observable implements Serializable{
+    private String evento;
 
     private String equipaCasa;
     private String equipaFora;
@@ -85,7 +86,7 @@ public class Jogo extends Observable implements Serializable{
         this.substituicoesCasa = substituicoesCasa;
     }
 
-    public Map<Integer, Integer> getSubstitucoesFora() {
+    public Map<Integer, Integer> getSubstituicoesFora() {
         return substitucoesFora;
     }
 
@@ -138,5 +139,20 @@ public class Jogo extends Observable implements Serializable{
                 LocalDate.of(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])),
                 jc, subsC, jf, subsF);
     }
+
+    public void goloCasa(){
+        this.golosCasa = getGolosCasa()+1;
+    }
+
+    public void goloFora(){
+        this.golosFora = getGolosFora()+1;
+    }
+
+    public void setEvento(String s){
+        this.evento = s;
+        setChanged();
+        notifyObservers(evento);
+    }
+
 
 }

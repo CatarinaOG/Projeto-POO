@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Random;
 
-public class JogoAtivo extends Jogo{
+public class JogoAtivo extends Jogo {
 
     /*
     private String equipaCasa;
@@ -76,13 +76,12 @@ public class JogoAtivo extends Jogo{
     public void run (){
         int acontecimento,golos1,golos2;
         int ac, j = 0,f = 0;
-        int [] golo1 = new int[90];
-        int [] golo2 = new int[90];
         double prob, prob_eq = 0.75;
         double temp;
 
         Map<Integer,Jogador> jogTitularesC = super.getTitularesCasa();
         Map<Integer,Jogador> jogTitularesF = super.getTitularesFora();
+
         double probTrocaDeBola;
         double probMarcar;
         int equipaComBola = random(); //0 -> casa 1-> fora
@@ -95,53 +94,74 @@ public class JogoAtivo extends Jogo{
             //------------------------------------tempo-------------------------------------
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
 
             //-------------------------------Acontecimentos---------------------------------
-
-            if (equipaComBola == 0) {
-                probTrocaDeBola = probPerderBola(jogTitularesC, i / 20);
-                acontecimento = randomP(probTrocaDeBola);
-
-                if (acontecimento == 1) {
-                    equipaComBola = 1;
-                    System.out.println("Posse de Bola: Fora");
-                } else {
-
-                    probMarcar = probMarcarGolo(jogTitularesC, i / 20);
-                    acontecimento = randomP(probMarcar);
+            if(i != 90) {
+                if (equipaComBola == 0) {
+                    probTrocaDeBola = probPerderBola(jogTitularesC, i / 20);
+                    acontecimento = randomP(probTrocaDeBola);
 
                     if (acontecimento == 1) {
-                        System.out.println("Golo de Casa. Posse de Bola: Fora");
                         equipaComBola = 1;
+
+                        super.setEvento("Casa " + getGolosCasa() + " X " + getGolosFora() + " Fora: Posse de Bola: Fora");
                     } else {
-                        System.out.println("Golo falhado de Casa. Posse de Bola: Fora");
-                        equipaComBola = 1;
+
+                        probMarcar = probMarcarGolo(jogTitularesC, i / 20);
+                        acontecimento = randomP(probMarcar);
+
+                        if (acontecimento == 1) {
+                            super.setEvento("Casa " + getGolosCasa() + " X " + getGolosFora() + " Fora: Golo de Casa. Posse de Bola: Fora");
+                            super.goloCasa();
+                            equipaComBola = 1;
+                        } else {
+                            super.setEvento("Casa " + getGolosCasa() + " X " + getGolosFora() + " Fora: Golo falhado de Casa. Posse de Bola: Fora");
+                            equipaComBola = 1;
+                        }
                     }
-                }
-            } else {
-                probTrocaDeBola = probPerderBola(jogTitularesF, i / 20);
-                acontecimento = randomP(probTrocaDeBola);
-
-                if (acontecimento == 1) {
-                    equipaComBola = 0;
-                    System.out.println("Posse de Bola: Casa");
                 } else {
-
-                    probMarcar = probMarcarGolo(jogTitularesF, i / 20);
-                    acontecimento = randomP(probMarcar);
+                    probTrocaDeBola = probPerderBola(jogTitularesF, i / 20);
+                    acontecimento = randomP(probTrocaDeBola);
 
                     if (acontecimento == 1) {
-                        System.out.println("Golo de Fora. Posse de Bola: Casa");
                         equipaComBola = 0;
+                        super.setEvento("Casa " + getGolosCasa() + " X " + getGolosFora() + " Fora: Posse de Bola: Casa");
                     } else {
-                        System.out.println("Golo falhado de Fora. Posse de Bola: Casa");
-                        equipaComBola = 0;
+
+                        probMarcar = probMarcarGolo(jogTitularesF, i / 20);
+                        acontecimento = randomP(probMarcar);
+
+                        if (acontecimento == 1) {
+                            super.setEvento("Casa " + getGolosCasa() + " X " + getGolosFora() + " Fora: Golo de Fora. Posse de Bola: Casa");
+                            super.goloFora();
+                            equipaComBola = 0;
+                        } else {
+                            super.setEvento("Casa " + getGolosCasa() + " X " + getGolosFora() + " Fora: Golo falhado de Fora. Posse de Bola: Casa");
+                            equipaComBola = 0;
+                        }
                     }
                 }
+            }
+            else{
+
+                for( Map.Entry<Integer,Integer> jog   : getSubstituicoesCasa().entrySet() ){
+                    substitutosCasa.put(jog.getKey(),getTitularesCasa().get(jog.getKey()));
+                    getTitularesCasa().remove(jog.getKey());
+                    getTitularesCasa().put(jog.getValue(),substitutosCasa.get(jog.getValue()));
+                    substitutosCasa.remove(jog.getValue());
+                }
+
+                for( Map.Entry<Integer,Integer> jog   : getSubstituicoesFora().entrySet() ){
+                    substitutosFora.put(jog.getKey(),getTitularesCasa().get(jog.getKey()));
+                    getTitularesFora().remove(jog.getKey());
+                    getTitularesFora().put(jog.getValue(),substitutosFora.get(jog.getValue()));
+                    substitutosFora.remove(jog.getValue());
+                }
+
             }
 
 
@@ -198,6 +218,10 @@ public class JogoAtivo extends Jogo{
 
     public double probMarcarGolo (Map<Integer,Jogador> jogTitulares, int tempo){
         return -((0.6)/(tempo+0.4))+1;
+    }
+
+    public void printResultado(){
+        System.out.println("Casa " + getGolosCasa() + " X " + getGolosFora() + " Fora:");
     }
 
 }

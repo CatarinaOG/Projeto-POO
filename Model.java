@@ -139,7 +139,7 @@ public class Model extends Observable implements Observer {
         equipas.get(equipa).removeJogador(nr);
     }
 
-    public void criarJogo(String casa, List<Integer> jogCasa, String fora, List<Integer> jogFora ){
+    public void criarJogo(String casa, List<Integer> jogCasa,Map<Integer,Integer> substC, String fora, List<Integer> jogFora, Map<Integer,Integer> substF ){
         Equipa equipaCasa = equipas.get(casa);
         Equipa equipaFora = equipas.get(fora);
 
@@ -158,13 +158,17 @@ public class Model extends Observable implements Observer {
             }
         }
 
-        Map<Integer,Integer> substituicoesC = new HashMap<>();
-        Map<Integer,Integer> substituicoesF = new HashMap<>();
+        for(Integer nr : jogFora){
+            if(substitutosF.containsKey(nr)) {
+                titularesF.put(nr, substitutosF.get(nr));
+                substitutosF.remove(nr);
+            }
+        }
 
-
-        JogoAtivo j = new JogoAtivo(casa,fora,0,0,d,titularesC,substitutosC,substituicoesC,titularesF,substitutosF,substituicoesF);
+        JogoAtivo j = new JogoAtivo(casa,fora,0,0,d,titularesC,substitutosC,substC,titularesF,substitutosF,substF);
+        j.addObserver(this);
         j.run();
-
+        jogos.add(j);
     }
 
     public void writeModel(String ficheiro) throws IOException {
@@ -196,11 +200,7 @@ public class Model extends Observable implements Observer {
     }
 
     //---------------------------------------------Observer-------------------------------------------------------------
-    public void setEvento(){
-            this.evento = "Maria";
-            setChanged();
-            notifyObservers(evento);
-    }
+
     public void update(Observable o, Object arg) {
         setChanged();
         notifyObservers(arg);
