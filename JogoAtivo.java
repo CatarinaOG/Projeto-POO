@@ -148,6 +148,9 @@ public class JogoAtivo extends Jogo {
             }
             else{
 
+                for( Map.Entry<Integer,Integer> jog   : getSubstituicoesCasa().entrySet() )
+                    super.setEvento("Substituicao de Casa: "+ jog.getKey() +"->"+jog.getValue());
+
                 for( Map.Entry<Integer,Integer> jog   : getSubstituicoesCasa().entrySet() ){
                     substitutosCasa.put(jog.getKey(),getTitularesCasa().get(jog.getKey()));
                     getTitularesCasa().remove(jog.getKey());
@@ -155,12 +158,18 @@ public class JogoAtivo extends Jogo {
                     substitutosCasa.remove(jog.getValue());
                 }
 
+
+
+                for( Map.Entry<Integer,Integer> jog   : getSubstituicoesFora().entrySet() )
+                    super.setEvento("Substituicao de Fora: "+ jog.getKey() +"->"+jog.getValue());
+
                 for( Map.Entry<Integer,Integer> jog   : getSubstituicoesFora().entrySet() ){
-                    substitutosFora.put(jog.getKey(),getTitularesCasa().get(jog.getKey()));
+                    substitutosFora.put(jog.getKey(),getTitularesFora().get(jog.getKey()));
                     getTitularesFora().remove(jog.getKey());
                     getTitularesFora().put(jog.getValue(),substitutosFora.get(jog.getValue()));
                     substitutosFora.remove(jog.getValue());
                 }
+
 
             }
 

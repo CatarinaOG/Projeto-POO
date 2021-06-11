@@ -66,13 +66,14 @@ public class Controller extends Observable implements Observer {
         List<Integer> titularesF = new ArrayList<>();
         Map<Integer,Integer> substituicoesF = new HashMap<>();
 
-        for(int i=5 ; i<7 ; i++) //13 e 24
+        for(int i=5 ; i<7 ; i++)  //13 e 24
             titularesF.add(Integer.parseInt(campos[i]));
+
 
         String[] substitutosF = campos[7].split("->");
         substituicoesF.put(Integer.parseInt(substitutosF[0]),Integer.parseInt(substitutosF[1]));
 
-        model.criarJogo(campos[0],titularesC,substituicoesC,campos[4],titularesC,substituicoesC);
+        model.criarJogo(campos[0],titularesC,substituicoesC,campos[4],titularesF,substituicoesF);
     }
 
     public void load(String ficheiro) throws LinhaIncorretaException {
