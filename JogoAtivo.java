@@ -48,7 +48,7 @@ public class JogoAtivo extends Jogo {
 
     //-------------------------------------------------Auxiliares-------------------------------------------------------
     public static int randomP(double p) {
-        return (Math.random() < p) ? 1 : 0;
+        return (Math.random() > p) ? 1 : 0;
     }
 
     public static int sizeA (int [] n){
@@ -74,6 +74,7 @@ public class JogoAtivo extends Jogo {
     //E tambem esta sem substituacoes nao estou conseguir fazer isso
 
     public void run (){
+        StringBuffer sb = new StringBuffer();
         int acontecimento,golos1,golos2;
         int ac, j = 0,f = 0;
         double prob, prob_eq = 0.75;
@@ -174,40 +175,6 @@ public class JogoAtivo extends Jogo {
             }
 
 
-            //------------------------------------golos-------------------------------------
-            /*if(prob_eq < 0.5) prob_eq = 1-prob_eq;
-
-            temp = (i+4);
-            prob = -(prob_eq / temp) + 1;
-            acontecimento = randomP(prob);
-
-            if (acontecimento == 0){
-                ac = randomP(prob_eq);
-                if (ac == 1) {
-                    golo1[j] = 1;
-                    j++;
-                    //text = text.concat("Equipa1 marcou no minuto ").concat(String.valueOf(i)).concat(" \n");
-                    System.out.printf("Equipa1 marcou no minuto %d\n", i);
-                }
-                else {
-                    golo2[f] = 1;
-                    f++;
-                    //text = text.concat("Equipa2 marcou no minuto ").concat(String.valueOf(i)).concat(" \n");
-                    System.out.printf("Equipa2 marcou no minuto %d\n", i);
-                }
-            }
-            //text = text.concat("Minutos").concat(String.valueOf(i)).concat(" \n");
-            //System.out.printf("Minuto %d\n", i);
-        }
-        golos1 = sizeA(golo1);
-        golos2 = sizeA(golo2);
-
-        //text = text.concat("Equipa1 : ").concat(String.valueOf(golos1)).concat(" x ").concat(String.valueOf(golos2)).concat(" : Equipa2\n");
-        System.out.printf("Eq1 : %d x %d : Eq2", golos1,golos2);
-
-             */
-
-
         }
     }
 
@@ -226,7 +193,7 @@ public class JogoAtivo extends Jogo {
     }
 
     public double probMarcarGolo (Map<Integer,Jogador> jogTitulares, int tempo){
-        return -((0.6)/(tempo+0.4))+1;
+        return -((0.20)/(tempo+4))+1 - valorEquipaTitular(jogTitulares)/200000;
     }
 
     public void printResultado(){
