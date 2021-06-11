@@ -189,7 +189,7 @@ public class JogoAtivo extends Jogo {
     }
 
     public double probPerderBola(Map<Integer,Jogador> jogTitulares, int tempo){
-        return -((0.67)/(tempo+0.88))+1;
+        return -((0.67)/(tempo+0.88))+1 - valorCruzamentoTitular(jogTitulares)/1000;
     }
 
     public double probMarcarGolo (Map<Integer,Jogador> jogTitulares, int tempo){
