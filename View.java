@@ -114,7 +114,7 @@ public class View implements Observer {
     }
 
     public void jogar(){
-        GetInput jogo = new GetInput(new String[] {"Equipa casa","j1","j2","j?->j?","Equipa fora","j1","j2","j?->j?"});
+        GetInput jogo = new GetInput(new String[] {"Equipa casa","j1","j2","j3","j4","j5","j6","j7","j8","j9","j10","j11","j?->j?","j?->j?","j?->j?","Equipa fora","j1","j2","j3","j4","j5","j6","j7","j8","j9","j10","j11","j?->j?","j?->j?","j?->j?"});
         String[] campos = jogo.getCampos();
 
         controller.criarJogo(campos);

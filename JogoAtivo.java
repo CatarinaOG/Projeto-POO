@@ -7,17 +7,6 @@ import java.util.Random;
 
 public class JogoAtivo extends Jogo {
 
-    /*
-    private String equipaCasa;
-    private String equipaFora;
-    private int golosCasa;
-    private int golosFora;
-    private Map<Integer,Jogador> titularesCasa;
-    private Map<Integer,Jogador> titularesFora;
-    private Map<Integer,Integer> substituicoesCasa;
-    private Map<Integer,Integer> substitucoesFora;
-    private final LocalDate data;
-     */
     private Map<Integer,Jogador> substitutosCasa;
     private Map<Integer,Jogador> substitutosFora;
 
@@ -51,34 +40,14 @@ public class JogoAtivo extends Jogo {
         return (Math.random() > p) ? 1 : 0;
     }
 
-    public static int sizeA (int [] n){
-        if(n[0] != 1) return 0;
-        int j = 0;
-        for (int i = 0; n[i] == 1; i++) j = i;
-        return j+1;
-    }
-
-    public static double probabilidade (double eq1,double eq2) {
-        double temp;
-        temp = eq1 + eq2;
-        return eq1 / temp;
-    }
-
     public int random(){
         Random r = new Random();
         return r.nextInt(2);
     }
 
-    //Isto esta feito para o interpertador se for para ser em aplicacao tem que ser de maneira ligeiramente diferente, e falta adicionar o calculo da prob_eq pois ainda preciso
-    // do valor das equipas para fazer uma funcao que faca a probabilidade
-    //E tambem esta sem substituacoes nao estou conseguir fazer isso
-
     public void run (){
         StringBuffer sb = new StringBuffer();
-        int acontecimento,golos1,golos2;
-        int ac, j = 0,f = 0;
-        double prob, prob_eq = 0.75;
-        double temp;
+        int acontecimento;
 
         Map<Integer,Jogador> jogTitularesC = super.getTitularesCasa();
         Map<Integer,Jogador> jogTitularesF = super.getTitularesFora();
@@ -90,12 +59,10 @@ public class JogoAtivo extends Jogo {
 
         for(int i = 0;i<=180; i++) {
 
-            //prob_eq = probabilidade(valorEqupa(titularesCasa), valorEquipa(titularesFora));
-
             //------------------------------------tempo-------------------------------------
 
             try {
-                Thread.sleep(10);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
@@ -159,8 +126,6 @@ public class JogoAtivo extends Jogo {
                     substitutosCasa.remove(jog.getValue());
                 }
 
-
-
                 for( Map.Entry<Integer,Integer> jog   : getSubstituicoesFora().entrySet() )
                     super.setEvento("Substituicao de Fora: "+ jog.getKey() +"->"+jog.getValue());
 
@@ -170,11 +135,7 @@ public class JogoAtivo extends Jogo {
                     getTitularesFora().put(jog.getValue(),substitutosFora.get(jog.getValue()));
                     substitutosFora.remove(jog.getValue());
                 }
-
-
             }
-
-
         }
     }
 
@@ -193,11 +154,7 @@ public class JogoAtivo extends Jogo {
     }
 
     public double probMarcarGolo (Map<Integer,Jogador> jogTitulares, int tempo){
-        return -((0.20)/(tempo+4))+1 - valorEquipaTitular(jogTitulares)/200000;
-    }
-
-    public void printResultado(){
-        System.out.println("Casa " + getGolosCasa() + " X " + getGolosFora() + " Fora:");
+        return -((0.20)/(tempo+4))+1 - valorEquipaTitular(jogTitulares)/20000;
     }
 
 }

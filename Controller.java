@@ -1,5 +1,3 @@
-import javax.management.modelmbean.ModelMBean;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
@@ -57,23 +55,31 @@ public class Controller extends Observable implements Observer {
         List<Integer> titularesC = new ArrayList<>();
         Map<Integer,Integer> substituicoesC = new HashMap<>();
 
-        for(int i=1 ; i<3 ; i++) // 12
+        for(int i=1 ; i<12 ; i++)
             titularesC.add(Integer.parseInt(campos[i]));
 
-        String[] substitutosC = campos[3].split("->");
-        substituicoesC.put(Integer.parseInt(substitutosC[0]),Integer.parseInt(substitutosC[1]));
+        String[] substitutosC1 = campos[12].split("->");
+        String[] substitutosC2 = campos[13].split("->");
+        String[] substitutosC3 = campos[14].split("->");
+        substituicoesC.put(Integer.parseInt(substitutosC1[0]),Integer.parseInt(substitutosC1[1]));
+        substituicoesC.put(Integer.parseInt(substitutosC2[0]),Integer.parseInt(substitutosC2[1]));
+        substituicoesC.put(Integer.parseInt(substitutosC3[0]),Integer.parseInt(substitutosC3[1]));
 
         List<Integer> titularesF = new ArrayList<>();
         Map<Integer,Integer> substituicoesF = new HashMap<>();
 
-        for(int i=5 ; i<7 ; i++)  //13 e 24
+        for(int i=16 ; i<27 ; i++)
             titularesF.add(Integer.parseInt(campos[i]));
 
 
-        String[] substitutosF = campos[7].split("->");
-        substituicoesF.put(Integer.parseInt(substitutosF[0]),Integer.parseInt(substitutosF[1]));
+        String[] substitutosF1 = campos[27].split("->");
+        String[] substitutosF2 = campos[28].split("->");
+        String[] substitutosF3 = campos[29].split("->");
+        substituicoesF.put(Integer.parseInt(substitutosF1[0]),Integer.parseInt(substitutosF1[1]));
+        substituicoesF.put(Integer.parseInt(substitutosF2[0]),Integer.parseInt(substitutosF2[1]));
+        substituicoesF.put(Integer.parseInt(substitutosF3[0]),Integer.parseInt(substitutosF3[1]));
 
-        model.criarJogo(campos[0],titularesC,substituicoesC,campos[4],titularesF,substituicoesF);
+        model.criarJogo(campos[0],titularesC,substituicoesC,campos[15],titularesF,substituicoesF);
     }
 
     public void load(String ficheiro) throws LinhaIncorretaException {

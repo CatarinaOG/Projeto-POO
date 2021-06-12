@@ -102,8 +102,6 @@ public class Jogo extends Observable implements Serializable{
 
     public String toString() {
         return  "Jogo:" + equipaCasa + " - " + equipaFora;
-        //+ " -> " + substituicoesCasa.toString()
-        //+ " -> " + substitucoesFora.toString();
     }
 
     //--------------------------------------------------------Metodos-------------------------------------------------
