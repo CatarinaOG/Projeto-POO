@@ -7,3 +7,6 @@ a????? Gresos Junior
 
 ## Descrição
 Simulação de um jogo de futebol (SEM Interface)
+
+## Utilização
+Abrir FootballManager e correr a main
