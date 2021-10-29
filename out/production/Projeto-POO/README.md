@@ -2,7 +2,7 @@
 
 ## Autores
 
-a93259 Ana Catarina Oliveira Gonçalves
+a93259 Ana Catarina Oliveira Gonçalves\
 a????? Gresos Junior
 
 ## Descrição
