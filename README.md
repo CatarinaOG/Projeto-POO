@@ -3,7 +3,7 @@
 ## Autores
 
 a93259 Ana Catarina Oliveira Gonçalves\
-a????? Gresos Junior
+a88000 Gresos Junior
 
 ## Descrição
 Simulação de um jogo de futebol (SEM Interface)
